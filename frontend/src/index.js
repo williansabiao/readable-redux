@@ -12,7 +12,7 @@ import logger from 'redux-logger'
 import { withRouter } from 'react-router'
 import registerServiceWorker from './registerServiceWorker'
 
-import rootReducer from './Components/Reducers/root_reducer'
+import rootReducer from './Reducers/root_reducer'
 import App from './Components/App'
 
 const history = createHistory()
