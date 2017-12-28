@@ -15,18 +15,14 @@ class App extends Component {
   }
 
   componentWillReceiveProps({ feedback }) {
-    if(feedback !== this.props.feedback) {
-      if(this.state.feedback.isOpen) this.setState({ feedback: { isOpen: false }})
-
-      setTimeout(() => {
-        this.setState({
-          feedback: {
-            isOpen: true,
-            message: feedback.message,
-          }
-        })
-      }, 1000)
-    }
+    setTimeout(() => {
+      this.setState({
+        feedback: {
+          isOpen: true,
+          message: feedback.message,
+        }
+      })
+    }, 500)
   }
 
   render() {
