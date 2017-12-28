@@ -4,9 +4,7 @@ import { push } from 'react-router-redux'
 import PropTypes from 'prop-types'
 import { createPost } from './../../Actions/post.actions'
 import PostForm from '../../Components/PostForm'
-import {
-  Snackbar,
-} from 'rmwc';
+import { showFeedback } from './../../Actions/feedback.actions'
 
 class AddPostPage extends Component {
   state = {
@@ -18,39 +16,19 @@ class AddPostPage extends Component {
 
   componentWillReceiveProps(nextProps) {
     if(nextProps.post.added && this.props.post !== nextProps.post.postAdded) {
-      // this.setState({
-      //   snackbar: {
-      //     isOpen: true,
-      //     message: 'Post added succesfully'
-      //   }
-      // })
+      this.props.showFeedback({ message: 'Post added succesfully' })
       this.props.navigateTo('/')
     }
   }
 
   savePost = (post) => {
-    // this.setState({
-    //   snackbar: {
-    //     isOpen: true,
-    //     message: 'Saving post...'
-    //   }
-    // })
+    this.props.showFeedback({ message: 'Saving post...' })
     this.props.addPost(post)
   }
 
   render() {
     return (
-      <div>
-        <PostForm submit={this.savePost} />
-        <Snackbar
-          show={this.state.snackbar.isOpen}
-          onClose={evt => this.setState({snackbarIsOpen: false})}
-          message={this.state.snackbar.message}
-          actionText="OK"
-          alignStart
-          timeout="2000"
-        />
-      </div>
+      <PostForm submit={this.savePost} />
     )
   }
 }
@@ -65,12 +43,14 @@ function mapDispatchToProps (dispatch) {
   return {
     addPost: (post) => dispatch(createPost(post)),
     navigateTo: (location) => dispatch(push(location)),
+    showFeedback: ({message}) => dispatch(showFeedback({message})),
   }
 }
 
 AddPostPage.propTypes = {
   addPost: PropTypes.func.isRequired,
   navigateTo: PropTypes.func.isRequired,
+  showFeedback: PropTypes.func.isRequired,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(AddPostPage)

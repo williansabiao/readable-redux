@@ -1,11 +1,9 @@
-import React, { Component } from 'react'
+import React from 'react'
 import PostForm from '../../Components/PostForm'
 
-class PostListPage extends Component {
-  render() {
-    return (
-      <PostForm />
-    )
-  }
+function PostListPage() {
+  return (
+    <PostForm />
+  )
 }
 export default PostListPage
