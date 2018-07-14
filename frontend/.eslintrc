@@ -1,0 +1,43 @@
+{
+  "extends": "airbnb",
+  "parser": "babel-eslint",
+  "env": {
+    "es6": true,
+    "browser": true,
+    "jest": true
+  },
+  "globals": {
+    "loadImage": true
+  },
+  "settings": {
+    "react": {
+      "pragma": "React",
+      "version": "16.2"
+    }
+  },
+  "rules": {
+    "jsx-a11y/anchor-is-valid": [ "error", {
+      "components": [ "Link" ],
+      "specialLink": [ "hrefLeft", "hrefRight", "to" ],
+      "aspects": [ "noHref", "invalidHref", "preferButton" ]
+    }],
+    "indent": ["error", 2],
+    "id-length": 0,
+    "react/jsx-indent": [2, 2],
+    "react/jsx-indent-props": [2, 2],
+    "semi": ["error", "never"],
+    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+    "import/no-extraneous-dependencies": ["error", {"packageDir": "./"}],
+    "linebreak-style": 0,
+    "jsx-a11y/label-has-for": [ 2, {
+      "components": [ "Label" ],
+      "required": {
+          "some": [ "nesting", "id" ]
+      },
+      "allowChildren": false
+    }],
+    "jsx-a11y/media-has-caption": 0,
+    "import/no-webpack-loader-syntax": 0,
+    "react/destructuring-assignment": "never"
+  }
+}

@@ -1,25 +1,26 @@
-
 import {
   FEEDBACK_SHOW,
-} from './../Actions/feedback.actions'
+} from '../Actions/feedback.actions'
 
 const initialState = {
   message: '',
 }
 
-export function feedback (state = initialState, action) {
+const feedbackReducer = (state = initialState, action) => {
   switch (action.type) {
-    case FEEDBACK_SHOW :
-      let { message } = action
+  case FEEDBACK_SHOW: {
+    const { message } = action
 
-      if(message) {
-        state.message = message
-      }
+    if (!message) return state
 
-      return {
-        ...state,
-      }
-    default :
-      return state
+    return {
+      ...state,
+      message,
+    }
+  }
+  default:
+    return state
   }
 }
+
+export default feedbackReducer

@@ -1,27 +1,33 @@
 
 import {
   POST_CREATE_SUCCESS,
-} from './../Actions/post.actions'
+} from '../Actions/post.actions'
 
 const initialState = {
   added: false,
-  postAdded: {}
+  postAdded: {},
 }
 
-export function post (state = initialState, action) {
+const postReducer = (state = initialState, action) => {
   switch (action.type) {
-    case POST_CREATE_SUCCESS :
-      let { post } = action
+  case POST_CREATE_SUCCESS: {
+    const { post } = action
 
-      if(post && post.id && post.timestamp && post.title && post.category && post.body && post.author) {
-        state.added = true
-        state.postAdded = post
-      }
-
-      return {
-        ...state,
-      }
-    default :
+    if (!(
+      post && post.id && post.timestamp && post.title && post.category && post.body && post.author
+    )) {
       return state
+    }
+
+    return {
+      ...state,
+      added: true,
+      postAdded: post,
+    }
+  }
+  default:
+    return state
   }
 }
+
+export default postReducer

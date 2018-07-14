@@ -1,0 +1,5 @@
+{
+  "private": true,
+  "name": "post-list",
+  "main": "PostList.js"
+}

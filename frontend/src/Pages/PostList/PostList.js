@@ -1,9 +1,8 @@
 import React from 'react'
 import PostForm from '../../Components/PostForm'
 
-function PostListPage() {
-  return (
-    <PostForm />
-  )
-}
+const PostListPage = () => (
+  <PostForm />
+)
+
 export default PostListPage

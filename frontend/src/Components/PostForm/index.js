@@ -7,7 +7,7 @@ import {
   Select,
   Button,
   Typography,
-} from 'rmwc';
+} from 'rmwc'
 
 class PostForm extends Component {
   state = {
@@ -18,8 +18,7 @@ class PostForm extends Component {
   }
 
   handleChange = (event) => {
-    const target = event.target
-    const value = target.value
+    const { target, value } = event
     const name = target.name || target.getAttribute('name')
 
     this.setState({
@@ -28,9 +27,10 @@ class PostForm extends Component {
   }
 
   handleSubmit = (e) => {
+    const { submit } = this.props
     e.preventDefault()
 
-    this.props.submit(this.state)
+    submit(this.state)
     return false
   }
 
@@ -39,7 +39,9 @@ class PostForm extends Component {
       <form name="newPost" onSubmit={this.handleSubmit}>
         <Grid>
           <GridCell span={12} align="left">
-            <Typography use="title">Add new Post</Typography>
+            <Typography use="title">
+              Add new Post
+            </Typography>
           </GridCell>
           <GridCell span={9}>
             <TextField
@@ -57,8 +59,8 @@ class PostForm extends Component {
               name="category"
               id="category"
               label="Category"
-              options={{'react': 'React', '2': 'Pizza', '3': 'Icecream Icecream'}}
-              style={{width: "100%"}}
+              options={{ react: 'React', 2: 'Pizza', 3: 'Icecream Icecream' }}
+              style={{ width: '100%' }}
             />
           </GridCell>
           <GridCell span={12}>
@@ -83,7 +85,9 @@ class PostForm extends Component {
             />
           </GridCell>
           <GridCell span={12} align="right">
-            <Button type="submit" align="right" raised>Save</Button>
+            <Button type="submit" align="right" raised>
+              Save
+            </Button>
           </GridCell>
         </Grid>
       </form>

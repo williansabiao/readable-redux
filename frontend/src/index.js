@@ -4,7 +4,7 @@ import './index.css'
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { ConnectedRouter as Router, routerMiddleware } from 'react-router-redux'
-import createHistory from 'history/createBrowserHistory';
+import createHistory from 'history/createBrowserHistory'
 import thunk from 'redux-thunk'
 import { createStore, applyMiddleware, compose } from 'redux'
 import { Provider } from 'react-redux'
@@ -16,7 +16,7 @@ import rootReducer from './Reducers/root_reducer'
 import App from './Components/App'
 
 const history = createHistory()
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose // eslint-disable-line
 
 const store = createStore(
   rootReducer,
@@ -26,7 +26,7 @@ const store = createStore(
       thunk,
       routerMiddleware(history),
     ),
-  )
+  ),
 )
 
 const NonBlockApp = withRouter(App)
@@ -37,6 +37,6 @@ ReactDOM.render(
       <NonBlockApp />
     </Router>
   </Provider>,
-  document.getElementById('root')
+  document.getElementById('root'),
 )
 registerServiceWorker()
