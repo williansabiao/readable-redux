@@ -1,10 +1,10 @@
 import { combineReducers } from 'redux'
 import { routerReducer } from 'react-router-redux'
-import postReducer from './post.reducers'
-import feedbackReducer from './feedback.reducers'
+import postReducer from '../duck/reducers/post'
+import feedbackReducer from '../duck/reducers/feedback'
 
 export default combineReducers({
   router: routerReducer,
-  postReducer,
-  feedbackReducer,
+  post: postReducer,
+  feedback: feedbackReducer,
 })

@@ -1,6 +1,6 @@
 import {
   FEEDBACK_SHOW,
-} from '../Actions/feedback.actions'
+} from '../actions/feedback'
 
 const initialState = {
   message: '',

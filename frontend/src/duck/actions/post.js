@@ -1,4 +1,4 @@
-import posts from '../utils/api'
+import posts from '../../utils/api'
 
 export const POST_CREATE_SUCCESS = 'POST_CREATE_SUCCESS'
 

@@ -1,7 +1,7 @@
 
 import {
   POST_CREATE_SUCCESS,
-} from '../Actions/post.actions'
+} from '../actions/post'
 
 const initialState = {
   added: false,

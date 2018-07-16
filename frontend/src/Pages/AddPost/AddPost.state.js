@@ -2,9 +2,9 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { push } from 'react-router-redux'
 import PropTypes from 'prop-types'
-import { createPost } from '../../Actions/post.actions'
+import { createPost } from '../../duck/actions/post'
 import PostForm from '../../Components/PostForm'
-import { showFeedback as showFeedbackAction } from '../../Actions/feedback.actions'
+import { showFeedback as showFeedbackAction } from '../../duck/actions/feedback'
 
 class AddPostPage extends Component {
   componentWillReceiveProps(nextProps) {
