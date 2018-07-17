@@ -23,7 +23,7 @@ const getPosts = () => (
     .then(res => res.json())
 )
 
-const get = (postId = '') => (
+const getPost = (postId = '') => (
   fetch(`${API_URL}/posts/${postId.trim()}`, {
     headers: {
       ...headers,
@@ -33,7 +33,7 @@ const get = (postId = '') => (
     .then(res => res.json())
 )
 
-const create = (post) => {
+const createPost = (post) => {
   const id = uuidv1()
   const timestamp = (new Date()).getTime()
 
@@ -52,7 +52,7 @@ const create = (post) => {
 }
 
 export default {
-  get,
-  create,
+  createPost,
+  getPost,
   getPosts,
 }

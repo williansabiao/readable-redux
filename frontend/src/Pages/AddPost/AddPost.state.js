@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { push } from 'react-router-redux'
 import PropTypes from 'prop-types'
-import { createPost } from '../../duck/actions/post'
+// import { createPost } from '../../duck/operations/post'
 import PostForm from '../../Components/PostForm'
 import { showFeedback as showFeedbackAction } from '../../duck/actions/feedback'
 
@@ -33,7 +33,7 @@ const mapStateToProps = ({ post }) => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  addPost: post => dispatch(createPost(post)),
+  // addPost: post => dispatch(createPost(post)),
   navigateTo: location => dispatch(push(location)),
   showFeedback: ({ message }) => dispatch(showFeedbackAction({ message })),
 })
