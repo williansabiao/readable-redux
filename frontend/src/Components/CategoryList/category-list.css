@@ -1,0 +1,16 @@
+.category-list {
+  margin: 20px 0;
+}
+.category-list ul {
+  margin: 0 auto;
+  padding: 0;
+}
+.category-list li {
+  list-style: none;
+  display: inline-block;
+  padding: 0 10px;
+}
+.category-list a {
+  text-decoration: underline;
+  color: grey;
+}

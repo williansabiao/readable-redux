@@ -6,28 +6,17 @@ import postsOperation from '../../duck/operations/posts'
 import PostsComponent from './Posts'
 
 class Posts extends Component {
-  state = {
-    posts: [],
-  }
-
   componentWillMount() {
     const { getPosts } = this.props
 
     getPosts()
   }
 
-  componentWillReceiveProps({ posts }) {
-    const prevProps = this.props
-    if (posts.status !== prevProps.status) {
-      if (posts.list.length > 0) this.setState({ posts: posts.list })
-    }
-  }
-
   render() {
     return (
       <div>
         <PostsComponent
-          posts={this.state.posts}
+          posts={this.props.posts}
         />
       </div>
     )
@@ -35,7 +24,7 @@ class Posts extends Component {
 }
 
 const mapStateToProps = ({ posts }) => ({
-  posts,
+  posts: posts.list,
 })
 
 const mapDispatchToProps = dispatch => ({
@@ -44,7 +33,7 @@ const mapDispatchToProps = dispatch => ({
 
 Posts.propTypes = {
   getPosts: PropTypes.func.isRequired,
-  posts: PropTypes.objectOf(PropTypes.any).isRequired,
+  posts: PropTypes.arrayOf(PropTypes.any).isRequired,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Posts)

@@ -51,8 +51,19 @@ const createPost = (post) => {
   }).then(res => res.json())
 }
 
+const getCategories = () => (
+  fetch(`${API_URL}/categories`, {
+    headers: {
+      ...headers,
+      'Content-Type': 'application/json',
+    },
+  })
+    .then(res => res.json())
+)
+
 export default {
   createPost,
   getPost,
   getPosts,
+  getCategories,
 }

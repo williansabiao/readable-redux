@@ -1,5 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { Link } from 'react-router-dom'
+
+import './category-list.css'
 
 const defaultClass = 'category-list'
 
@@ -9,8 +12,10 @@ const CategoryList = ({ categories }) => (
       && (
         <ul>
           {categories.map(category => (
-            <li key={category.map}>
-              {category.name}
+            <li key={category.path}>
+              <Link to={`/category/${category.path}`}>
+                {category.name}
+              </Link>
             </li>
           ))}
         </ul>
@@ -27,7 +32,7 @@ const CategoryList = ({ categories }) => (
 CategoryList.propTypes = {
   categories: PropTypes.arrayOf(PropTypes.shape({
     name: PropTypes.string.isRequired,
-    url: PropTypes.string.isRequired,
+    path: PropTypes.string.isRequired,
   })),
 }
 
