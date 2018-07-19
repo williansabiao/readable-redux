@@ -7,7 +7,7 @@ const Posts = ({
   posts,
 }) => (
   <div>
-    {posts.map(post => (
+    {posts.length > 0 && posts.map(post => (
       <PostListItem
         key={post.id}
         title={post.title}
@@ -19,6 +19,11 @@ const Posts = ({
         deleteURL="lala"
       />
     ))}
+    {posts.length < 1 && (
+      <p>
+        No posts to show.
+      </p>
+    )}
   </div>
 )
 

@@ -17,14 +17,14 @@ class App extends Component {
   }
 
   componentWillReceiveProps({ feedback }) {
-    setTimeout(() => {
-      this.setState({
-        feedback: {
-          isOpen: true,
-          message: feedback.message,
-        },
-      })
-    }, 500)
+    // setTimeout(() => {
+    //   this.setState({
+    //     feedback: {
+    //       isOpen: true,
+    //       message: feedback.message,
+    //     },
+    //   })
+    // }, 500)
   }
 
   render() {
