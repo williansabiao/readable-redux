@@ -1,7 +1,6 @@
 {
   "name": "frontend",
   "version": "0.1.0",
-  "private": true,
   "dependencies": {
     "history": "^4.7.2",
     "material-components-web": "^0.27.0",
