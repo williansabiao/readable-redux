@@ -32,7 +32,9 @@ class Posts extends Component {
     }
   }
 
-  filterPosts = (posts = [], category = '') => console.log(posts, category) || posts.filter(post => post.category === category)
+  filterPosts = (posts = [], category = '') => (
+    category && category.length > 0 ? posts.filter(post => post.category === category) : posts
+  )
 
   render() {
     return (

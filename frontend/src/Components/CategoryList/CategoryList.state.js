@@ -11,9 +11,9 @@ class CategoryList extends Component {
   }
 
   render() {
-    console.log(this.props.categories.categories)
+    const { categories, ...rest } = this.props
     return (
-      <CategoryListComponent categories={this.props.categories} />
+      <CategoryListComponent categories={categories} {...rest} />
     )
   }
 }

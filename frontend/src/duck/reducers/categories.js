@@ -20,7 +20,7 @@ const categoriesReducer = (state = initialState, action) => {
   }
   case CATEGORY_LIST_SUCCESS: {
     const { categories } = action.payload
-    
+
     if (!categories) {
       return state
     }

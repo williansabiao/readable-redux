@@ -6,11 +6,18 @@ import './category-list.css'
 
 const defaultClass = 'category-list'
 
-const CategoryList = ({ categories }) => (
+const CategoryList = ({ categories, showAll }) => (
   <div className={defaultClass}>
     {categories.length > 0
       && (
         <ul>
+          {showAll && (
+            <li>
+              <Link to="/">
+                All
+              </Link>
+            </li>
+          )}
           {categories.map(category => (
             <li key={category.path}>
               <Link to={`/category/${category.path}`}>
@@ -34,10 +41,12 @@ CategoryList.propTypes = {
     name: PropTypes.string.isRequired,
     path: PropTypes.string.isRequired,
   })),
+  showAll: PropTypes.bool,
 }
 
 CategoryList.defaultProps = {
   categories: [],
+  showAll: false,
 }
 
 export default CategoryList

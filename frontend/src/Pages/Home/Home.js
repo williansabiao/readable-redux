@@ -10,7 +10,7 @@ const Home = ({
   match,
 }) => (
   <div>
-    <CategoryList />
+    <CategoryList showAll />
     <Link to="/add-post" className="btn btn-warning" role="button">
       Adicionar um post
     </Link>
