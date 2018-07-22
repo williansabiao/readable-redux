@@ -10,13 +10,14 @@ const Posts = ({
     {posts.length > 0 && posts.map(post => (
       <PostListItem
         key={post.id}
+        id={post.id}
         title={post.title}
         author={post.author}
         comments={post.commentCount}
         score={post.voteScore}
         voteCallback={() => {}}
-        editURL="lala"
-        deleteURL="lala"
+        editURL={`/edit/${post.id}`}
+        deleteURL={`/delete/${post.id}`}
       />
     ))}
     {posts.length < 1 && (

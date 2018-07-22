@@ -1,0 +1,5 @@
+{
+  "private": true,
+  "main": "PostListItem.state.js",
+  "name": "post-list-item"
+}

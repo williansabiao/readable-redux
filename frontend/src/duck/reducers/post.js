@@ -3,12 +3,18 @@ import {
   POST_CREATE_REQUEST,
   POST_CREATE_FAILED,
   POST_CREATE_SUCCESS,
+  POST_GET_REQUEST,
+  POST_GET_FAILED,
+  POST_GET_SUCCESS,
+  POST_UPDATE_REQUEST,
+  POST_UPDATE_FAILED,
+  POST_UPDATE_SUCCESS,
 } from '../actions/post'
 
 const initialState = {
   status: null,
   added: false,
-  postAdded: {
+  postDetails: {
     id: null,
     timestamp: null,
     title: null,
@@ -40,7 +46,7 @@ const postReducer = (state = initialState, action) => {
       ...initialState,
       status: POST_CREATE_SUCCESS,
       added: true,
-      postAdded: post,
+      postDetails: post,
     }
   }
   case POST_CREATE_FAILED: {
@@ -49,6 +55,66 @@ const postReducer = (state = initialState, action) => {
     return {
       ...initialState,
       status: POST_CREATE_FAILED,
+      error: errorData,
+    }
+  }
+  case POST_GET_REQUEST: {
+    return ({
+      ...initialState,
+      status: POST_GET_REQUEST,
+    })
+  }
+  case POST_GET_SUCCESS: {
+    const { post } = action.payload
+
+    if (!(
+      post && post.id && post.timestamp && post.title && post.category && post.body && post.author
+    )) {
+      return state
+    }
+
+    return {
+      ...initialState,
+      status: POST_GET_SUCCESS,
+      postDetails: post,
+    }
+  }
+  case POST_GET_FAILED: {
+    const { errorData } = action.payload
+
+    return {
+      ...initialState,
+      status: POST_GET_FAILED,
+      error: errorData,
+    }
+  }
+  case POST_UPDATE_REQUEST: {
+    return ({
+      ...initialState,
+      status: POST_UPDATE_REQUEST,
+    })
+  }
+  case POST_UPDATE_SUCCESS: {
+    const { post } = action.payload
+
+    if (!(
+      post && post.id && post.timestamp && post.title && post.category && post.body && post.author
+    )) {
+      return state
+    }
+
+    return {
+      ...initialState,
+      status: POST_UPDATE_SUCCESS,
+      postDetails: post,
+    }
+  }
+  case POST_UPDATE_FAILED: {
+    const { errorData } = action.payload
+
+    return {
+      ...initialState,
+      status: POST_UPDATE_FAILED,
       error: errorData,
     }
   }

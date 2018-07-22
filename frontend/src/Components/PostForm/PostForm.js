@@ -24,12 +24,22 @@ const handleChange = (event, cb) => {
   cb(name, value)
 }
 
-const PostForm = ({ categories, onChange, onSubmit }) => (
+const PostForm = ({
+  categories,
+  onChange,
+  onSubmit,
+  title,
+  category,
+  body,
+  author,
+  type,
+  onCancel,
+}) => (
   <form name="newPost" onSubmit={onSubmit}>
     <Grid>
       <GridCell span={12} align="middle">
         <Typography use="headline3">
-          Add new Post
+          {type === 'edit' ? 'Edit post' : 'Add new Post'}
         </Typography>
       </GridCell>
     </Grid>
@@ -42,6 +52,7 @@ const PostForm = ({ categories, onChange, onSubmit }) => (
           label="Title"
           required
           style={{ maxWidth: '100%' }}
+          defaultValue={title}
           // fullwidth
         />
       </GridCell>
@@ -54,6 +65,7 @@ const PostForm = ({ categories, onChange, onSubmit }) => (
           options={formatCategoriesToSelect(categories)}
           required
           placeholder="Select one category"
+          value={category}
         />
       </GridCell>
       <GridCell span={4} align="middle">
@@ -63,6 +75,7 @@ const PostForm = ({ categories, onChange, onSubmit }) => (
           id="author"
           label="Author"
           required
+          defaultValue={author}
         />
       </GridCell>
     </Grid>
@@ -77,12 +90,19 @@ const PostForm = ({ categories, onChange, onSubmit }) => (
           label="Text"
           required
           fullwidth
+          defaultValue={body}
         />
       </GridCell>
     </Grid>
-    <Grid>
-      <GridCell span={12} align="right">
-        <Button type="submit" align="right" raised>
+    <Grid align="right">
+      <GridCell span={8} />
+      <GridCell span={2} align="right">
+        <Button onClick={onCancel}>
+          Cancel
+        </Button>
+      </GridCell>
+      <GridCell span={2} align="right">
+        <Button type="submit" raised>
           Save
         </Button>
       </GridCell>
@@ -94,12 +114,24 @@ PostForm.propTypes = {
   onSubmit: PropTypes.func,
   onChange: PropTypes.func,
   categories: PropTypes.arrayOf(PropTypes.any),
+  title: PropTypes.string,
+  category: PropTypes.string,
+  body: PropTypes.string,
+  author: PropTypes.string,
+  type: PropTypes.string,
+  onCancel: PropTypes.func,
 }
 
 PostForm.defaultProps = {
   categories: [],
   onSubmit: () => {},
   onChange: () => {},
+  title: '',
+  category: '',
+  body: '',
+  author: '',
+  type: 'new',
+  onCancel: () => {},
 }
 
 export default PostForm

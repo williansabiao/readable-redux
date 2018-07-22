@@ -51,6 +51,22 @@ const createPost = (post) => {
   }).then(res => res.json())
 }
 
+const updatePost = (post) => {
+  const timestamp = (new Date()).getTime()
+
+  return fetch(`${API_URL}/posts/${post.id}`, {
+    method: 'PUT',
+    headers: {
+      ...headers,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      ...post,
+      timestamp,
+    }),
+  }).then(res => res.json())
+}
+
 const getCategories = () => (
   fetch(`${API_URL}/categories`, {
     headers: {
@@ -66,4 +82,5 @@ export default {
   getPost,
   getPosts,
   getCategories,
+  updatePost,
 }

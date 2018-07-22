@@ -8,6 +8,7 @@ const Routes = () => (
     <Switch>
       <Route exact path="/" component={Home} />
       <Route exact path="/add-post" component={AddPost} />
+      <Route exact path="/edit/:id" component={AddPost} />
       <Route path="/category/:category" component={Home} />
     </Switch>
   </div>
