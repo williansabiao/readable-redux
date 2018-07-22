@@ -6,7 +6,7 @@ import {
 
 import api from '../../utils/api'
 
-const fetchGetCategories = () => (dispatch) => {
+export const fetchGetCategories = () => (dispatch) => {
   dispatch(listCategoriesRequest())
   return api
     .getCategories()

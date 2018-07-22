@@ -7,6 +7,7 @@ import posts from '../../utils/api'
 
 export const createPostFetch = post => (dispatch) => {
   dispatch(createPost())
+  console.log(post)
   if (
     post
     && post.title
@@ -14,8 +15,9 @@ export const createPostFetch = post => (dispatch) => {
     && post.body
     && post.author
   ) {
+    console.log('oi')
     return posts
-      .create(post)
+      .createPost(post)
       .then(resultPost => dispatch(createPostSuccess(resultPost)))
       .catch(error => createPostFailed(error))
   }
