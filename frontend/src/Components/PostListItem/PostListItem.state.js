@@ -36,7 +36,7 @@ PostListItem.propTypes = {
   score: PropTypes.number.isRequired,
   voteCallback: PropTypes.func.isRequired,
   editURL: PropTypes.string.isRequired,
-  deleteURL: PropTypes.string.isRequired,
+  onDelete: PropTypes.func.isRequired,
   navigateTo: PropTypes.func.isRequired,
 }
 

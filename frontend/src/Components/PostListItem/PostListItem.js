@@ -21,7 +21,7 @@ const PostListItem = ({
   score,
   voteCallback,
   editURL,
-  deleteURL,
+  onDelete,
   id,
   menuIsOpen,
   goToURL,
@@ -100,7 +100,12 @@ const PostListItem = ({
           <MenuItem onClick={goToURL(editURL)}>
             Edit
           </MenuItem>
-          <MenuItem onClick={goToURL(deleteURL)}>
+          <MenuItem
+            onClick={() => {
+              onDelete()
+              setMenuOpen(false)
+            }}
+          >
             Delete
           </MenuItem>
         </Menu>
@@ -117,10 +122,10 @@ PostListItem.propTypes = {
   score: PropTypes.number.isRequired,
   voteCallback: PropTypes.func.isRequired,
   editURL: PropTypes.string.isRequired,
-  deleteURL: PropTypes.string.isRequired,
   menuIsOpen: PropTypes.bool,
   goToURL: PropTypes.func.isRequired,
   setMenuOpen: PropTypes.func.isRequired,
+  onDelete: PropTypes.func.isRequired,
 }
 
 PostListItem.defaultProps = {

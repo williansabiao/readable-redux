@@ -5,6 +5,7 @@ import PostListItem from '../PostListItem'
 
 const Posts = ({
   posts,
+  onDelete,
 }) => (
   <div>
     {posts.length > 0 && posts.map(post => (
@@ -17,7 +18,7 @@ const Posts = ({
         score={post.voteScore}
         voteCallback={() => {}}
         editURL={`/edit/${post.id}`}
-        deleteURL={`/delete/${post.id}`}
+        onDelete={onDelete(post.id)}
       />
     ))}
     {posts.length < 1 && (
@@ -30,10 +31,12 @@ const Posts = ({
 
 Posts.propTypes = {
   posts: PropTypes.arrayOf(PropTypes.object),
+  onDelete: PropTypes.func,
 }
 
 Posts.defaultProps = {
   posts: [],
+  onDelete: () => {},
 }
 
 export default Posts

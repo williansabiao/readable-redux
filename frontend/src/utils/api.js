@@ -67,6 +67,16 @@ const updatePost = (post) => {
   }).then(res => res.json())
 }
 
+const deletePost = id => (
+  fetch(`${API_URL}/posts/${id}`, {
+    method: 'DELETE',
+    headers: {
+      ...headers,
+      'Content-Type': 'application/json',
+    },
+  }).then(res => res.json())
+)
+
 const getCategories = () => (
   fetch(`${API_URL}/categories`, {
     headers: {
@@ -83,4 +93,5 @@ export default {
   getPosts,
   getCategories,
   updatePost,
+  deletePost,
 }

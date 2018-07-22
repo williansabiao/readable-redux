@@ -8,6 +8,9 @@ import {
   updatePost,
   updatePostSuccess,
   updatePostFailed,
+  deletePost,
+  deletePostSuccess,
+  deletePostFailed,
 } from '../actions/post'
 
 import posts from '../../utils/api'
@@ -31,7 +34,6 @@ export const createPostFetch = post => (dispatch) => {
 
 export const updatePostFetch = post => (dispatch) => {
   dispatch(updatePost())
-  console.log('olarr', post)
   if (
     post
     && post.id
@@ -40,7 +42,6 @@ export const updatePostFetch = post => (dispatch) => {
     && post.body
     && post.author
   ) {
-    console.log('olarr2')
     return posts
       .updatePost(post)
       .then(resultPost => dispatch(updatePostSuccess(resultPost)))
@@ -61,8 +62,21 @@ export const getPostFetch = id => (dispatch) => {
   return false
 }
 
+export const deletePostFetch = id => (dispatch) => {
+  dispatch(deletePost())
+
+  if (id) {
+    return posts
+      .deletePost(id)
+      .then(() => dispatch(deletePostSuccess(id)))
+      .catch(error => deletePostFailed(error))
+  }
+  return false
+}
+
 export default {
   createPostFetch,
   getPostFetch,
   updatePostFetch,
+  deletePostFetch,
 }

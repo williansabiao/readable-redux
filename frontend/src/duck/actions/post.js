@@ -10,6 +10,10 @@ export const POST_UPDATE_REQUEST = 'POST_UPDATE_REQUEST'
 export const POST_UPDATE_FAILED = 'POST_UPDATE_FAILED'
 export const POST_UPDATE_SUCCESS = 'POST_UPDATE_SUCCESS'
 
+export const POST_DELETE_REQUEST = 'POST_DELETE_REQUEST'
+export const POST_DELETE_FAILED = 'POST_DELETE_FAILED'
+export const POST_DELETE_SUCCESS = 'POST_DELETE_SUCCESS'
+
 export const createPost = () => ({
   type: POST_CREATE_REQUEST,
 })
@@ -52,6 +56,20 @@ export const updatePostFailed = errorData => ({
   payload: { errorData },
 })
 
+export const deletePost = () => ({
+  type: POST_DELETE_REQUEST,
+})
+
+export const deletePostSuccess = id => ({
+  type: POST_DELETE_SUCCESS,
+  payload: { id },
+})
+
+export const deletePostFailed = errorData => ({
+  type: POST_DELETE_FAILED,
+  payload: { errorData },
+})
+
 export default {
   createPost,
   createPostSuccess,
@@ -62,4 +80,7 @@ export default {
   updatePost,
   updatePostSuccess,
   updatePostFailed,
+  deletePost,
+  deletePostSuccess,
+  deletePostFailed,
 }

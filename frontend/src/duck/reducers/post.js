@@ -9,6 +9,9 @@ import {
   POST_UPDATE_REQUEST,
   POST_UPDATE_FAILED,
   POST_UPDATE_SUCCESS,
+  POST_DELETE_REQUEST,
+  POST_DELETE_FAILED,
+  POST_DELETE_SUCCESS,
 } from '../actions/post'
 
 const initialState = {
@@ -115,6 +118,33 @@ const postReducer = (state = initialState, action) => {
     return {
       ...initialState,
       status: POST_UPDATE_FAILED,
+      error: errorData,
+    }
+  }
+  case POST_DELETE_REQUEST: {
+    return ({
+      ...initialState,
+      status: POST_DELETE_REQUEST,
+    })
+  }
+  case POST_DELETE_SUCCESS: {
+    const { id } = action.payload
+
+    if (!id) {
+      return state
+    }
+
+    return {
+      ...initialState,
+      status: POST_DELETE_SUCCESS,
+    }
+  }
+  case POST_DELETE_FAILED: {
+    const { errorData } = action.payload
+
+    return {
+      ...initialState,
+      status: POST_DELETE_FAILED,
       error: errorData,
     }
   }

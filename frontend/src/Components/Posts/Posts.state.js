@@ -3,6 +3,8 @@ import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 
 import postsOperation from '../../duck/operations/posts'
+import { deletePostFetch } from '../../duck/operations/post'
+import { POST_DELETE_SUCCESS } from '../../duck/actions/post'
 import { POSTS_LIST_SUCCESS } from '../../duck/actions/posts'
 import PostsComponent from './Posts'
 
@@ -17,7 +19,9 @@ class Posts extends Component {
     getPosts()
   }
 
-  componentWillReceiveProps({ category, postsStatus, posts }) {
+  componentWillReceiveProps({
+    category, postsStatus, posts, post,
+  }) {
     const prevProps = this.props
     if (postsStatus !== prevProps.postsStatus) {
       let allPosts = []
@@ -30,7 +34,15 @@ class Posts extends Component {
     if (category !== prevProps.category) {
       this.setState({ posts: this.filterPosts(posts, category) })
     }
+
+    if (post.status !== prevProps.post.status) {
+      if (post.status === POST_DELETE_SUCCESS) {
+        prevProps.getPosts()
+      }
+    }
   }
+
+  onDelete = id => () => this.props.deletePost(id)
 
   filterPosts = (posts = [], category = '') => (
     category && category.length > 0 ? posts.filter(post => post.category === category) : posts
@@ -40,25 +52,30 @@ class Posts extends Component {
     return (
       <PostsComponent
         posts={this.state.posts}
+        onDelete={this.onDelete}
       />
     )
   }
 }
 
-const mapStateToProps = ({ posts }) => ({
+const mapStateToProps = ({ posts, post }) => ({
   posts: posts.list,
   postsStatus: posts.status || '',
+  post,
 })
 
 const mapDispatchToProps = dispatch => ({
   getPosts: () => dispatch(postsOperation.getPosts()),
+  deletePost: id => dispatch(deletePostFetch(id)),
 })
 
 Posts.propTypes = {
   getPosts: PropTypes.func.isRequired,
   posts: PropTypes.arrayOf(PropTypes.any).isRequired,
+  post: PropTypes.objectOf(PropTypes.any).isRequired,
   category: PropTypes.string,
   postsStatus: PropTypes.string.isRequired,
+  deletePost: PropTypes.func.isRequired,
 }
 
 Posts.defaultProps = {
