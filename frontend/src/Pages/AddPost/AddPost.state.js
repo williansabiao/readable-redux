@@ -28,7 +28,7 @@ class AddPostPage extends Component {
 
   savePost = (post) => {
     const { addPost, showFeedback } = this.props
-    console.log(post)
+
     showFeedback({ message: 'Saving post...' })
     addPost(post)
   }
