@@ -1,6 +1,6 @@
 import React from 'react'
 import { Route, Switch } from 'react-router-dom'
-import { Home, AddPost } from '../../Pages'
+import { Home, AddPost, PostDetails } from '../../Pages'
 
 const Routes = () => (
   <div>
@@ -9,6 +9,7 @@ const Routes = () => (
       <Route exact path="/" component={Home} />
       <Route exact path="/add-post" component={AddPost} />
       <Route exact path="/edit/:id" component={AddPost} />
+      <Route exact path="/post/:id" component={PostDetails} />
       <Route path="/category/:category" component={Home} />
     </Switch>
   </div>

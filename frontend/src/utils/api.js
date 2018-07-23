@@ -23,6 +23,16 @@ const getPosts = () => (
     .then(res => res.json())
 )
 
+const getPostComments = id => (
+  fetch(`${API_URL}/posts/${id}/comments`, {
+    headers: {
+      ...headers,
+      'Content-Type': 'application/json',
+    },
+  })
+    .then(res => res.json())
+)
+
 const getPost = (postId = '') => (
   fetch(`${API_URL}/posts/${postId.trim()}`, {
     headers: {
@@ -94,4 +104,5 @@ export default {
   getCategories,
   updatePost,
   deletePost,
+  getPostComments,
 }

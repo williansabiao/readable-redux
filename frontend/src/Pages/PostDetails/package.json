@@ -1,0 +1,5 @@
+{
+  "private": true,
+  "main": "PostDetails.state.js",
+  "name": "post-details"
+}

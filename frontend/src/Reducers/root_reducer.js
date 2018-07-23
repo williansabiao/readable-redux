@@ -4,6 +4,7 @@ import postReducer from '../duck/reducers/post'
 import postsReducer from '../duck/reducers/posts'
 import feedbackReducer from '../duck/reducers/feedback'
 import categoriesReducer from '../duck/reducers/categories'
+import commentsReducer from '../duck/reducers/comments'
 
 export default combineReducers({
   router: routerReducer,
@@ -11,4 +12,5 @@ export default combineReducers({
   posts: postsReducer,
   feedback: feedbackReducer,
   categories: categoriesReducer,
+  comments: commentsReducer,
 })

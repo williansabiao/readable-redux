@@ -1,0 +1,5 @@
+{
+  "private": true,
+  "main": "CommentList.state.js",
+  "name": "comment-list"
+}
