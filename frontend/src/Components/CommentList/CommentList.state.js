@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 
-import { getCommentsFetch } from '../../duck/operations/comments'
+import { getCommentsFetch, deleteCommentFetch } from '../../duck/operations/comments'
 import CommentListStateless from './CommentList'
 
 class CommentList extends Component {
@@ -13,12 +13,17 @@ class CommentList extends Component {
     if (this.props.parentId) this.props.getComments(this.props.parentId)
   }
 
+  onDelete = id => this.props.deleteComment(id)
+
+  removeDeletedComments = comments => comments.filter(comment => !comment.deleted)
+
   render() {
     const { parentId, commentList } = this.props
     return (
       <CommentListStateless
         parentId={parentId}
-        comments={commentList}
+        comments={this.removeDeletedComments(commentList)}
+        onDelete={this.onDelete}
       />
     )
   }
@@ -30,10 +35,12 @@ const mapStateToProps = ({ comments }) => ({
 
 const mapDispatchToProps = dispatch => ({
   getComments: id => dispatch(getCommentsFetch(id)),
+  deleteComment: id => dispatch(deleteCommentFetch(id)),
 })
 
 CommentList.propTypes = {
   getComments: PropTypes.func.isRequired,
+  deleteComment: PropTypes.func.isRequired,
   commentList: PropTypes.arrayOf(PropTypes.any).isRequired,
   parentId: PropTypes.string.isRequired,
 }

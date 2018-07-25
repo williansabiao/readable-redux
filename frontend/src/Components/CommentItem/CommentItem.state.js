@@ -6,16 +6,26 @@ import CommentItemStateless from './CommentItem'
 class CommentItem extends Component {
   state = {
     editComment: false,
+    deleteDialogOpen: false,
   }
+
+  onDelete = id => this.props.onDelete(id)
 
   setShowForm = value => this.setState({ editComment: value })
 
+  setDeleteDialog = value => this.setState({ deleteDialogOpen: value })
+
   render() {
+    const { deleteDialogOpen, editComment } = this.state
+
     return (
       <CommentItemStateless
-        editComment={this.state.editComment}
-        setShowForm={this.setShowForm}
         {...this.props}
+        editComment={editComment}
+        setShowForm={this.setShowForm}
+        deleteDialogOpen={deleteDialogOpen}
+        setDeleteDialog={this.setDeleteDialog}
+        onDelete={this.onDelete} // override what comes from this.props
       />
     )
   }
@@ -23,6 +33,7 @@ class CommentItem extends Component {
 
 CommentItem.propTypes = {
   id: PropTypes.string.isRequired,
+  onDelete: PropTypes.func.isRequired,
 }
 
 export default CommentItem

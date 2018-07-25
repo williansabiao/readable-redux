@@ -19,6 +19,7 @@ import './comment-list.css'
 const CommentList = ({
   comments,
   parentId,
+  onDelete,
 }) => (
   <React.Fragment>
     <Grid>
@@ -33,6 +34,7 @@ const CommentList = ({
       <CommentItem
         key={comment.id}
         {...comment}
+        onDelete={onDelete}
       />
     ))}
   </React.Fragment>
@@ -41,6 +43,7 @@ const CommentList = ({
 CommentList.propTypes = {
   comments: PropTypes.arrayOf(PropTypes.any),
   parentId: PropTypes.string.isRequired,
+  onDelete: PropTypes.func.isRequired,
 }
 
 CommentList.defaultProps = {

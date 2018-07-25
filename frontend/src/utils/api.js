@@ -11,13 +11,13 @@ if (!token) {
 const headers = {
   Accept: 'application/json',
   Authorization: token,
+  'Content-Type': 'application/json',
 }
 
 const getPosts = () => (
   fetch(`${API_URL}/posts/`, {
     headers: {
       ...headers,
-      'Content-Type': 'application/json',
     },
   })
     .then(res => res.json())
@@ -27,7 +27,6 @@ const getPostComments = id => (
   fetch(`${API_URL}/posts/${id}/comments`, {
     headers: {
       ...headers,
-      'Content-Type': 'application/json',
     },
   })
     .then(res => res.json())
@@ -37,7 +36,6 @@ const getPost = (postId = '') => (
   fetch(`${API_URL}/posts/${postId.trim()}`, {
     headers: {
       ...headers,
-      'Content-Type': 'application/json',
     },
   })
     .then(res => res.json())
@@ -51,7 +49,6 @@ const createPost = (post) => {
     method: 'POST',
     headers: {
       ...headers,
-      'Content-Type': 'application/json',
     },
     body: JSON.stringify({
       ...post,
@@ -67,10 +64,9 @@ const createOrUpdateComment = (comment) => {
   const timestamp = (new Date()).getTime()
 
   return fetch(`${API_URL}/comments`, {
-    method: 'POST',
+    method: isEdit ? 'PUT' : 'POST',
     headers: {
       ...headers,
-      'Content-Type': 'application/json',
     },
     body: JSON.stringify({
       ...comment,
@@ -87,7 +83,6 @@ const updatePost = (post) => {
     method: 'PUT',
     headers: {
       ...headers,
-      'Content-Type': 'application/json',
     },
     body: JSON.stringify({
       ...post,
@@ -101,7 +96,15 @@ const deletePost = id => (
     method: 'DELETE',
     headers: {
       ...headers,
-      'Content-Type': 'application/json',
+    },
+  }).then(res => res.json())
+)
+
+const deleteComment = id => (
+  fetch(`${API_URL}/comments/${id}`, {
+    method: 'DELETE',
+    headers: {
+      ...headers,
     },
   }).then(res => res.json())
 )
@@ -110,7 +113,6 @@ const getCategories = () => (
   fetch(`${API_URL}/categories`, {
     headers: {
       ...headers,
-      'Content-Type': 'application/json',
     },
   })
     .then(res => res.json())
@@ -125,4 +127,5 @@ export default {
   deletePost,
   createOrUpdateComment,
   getPostComments,
+  deleteComment,
 }

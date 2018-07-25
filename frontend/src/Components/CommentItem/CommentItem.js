@@ -5,6 +5,7 @@ import {
   Grid,
   GridCell,
   Button,
+  SimpleDialog,
 } from 'rmwc'
 
 import { formatToComments } from '../../utils/date'
@@ -22,6 +23,9 @@ const CommentItem = ({
   timestamp,
   body,
   parentId,
+  onDelete,
+  deleteDialogOpen,
+  setDeleteDialog,
 }) => (
   <React.Fragment>
     {!editComment && (
@@ -36,8 +40,11 @@ const CommentItem = ({
           <p>
             {`Votes: ${voteScore}`}
           </p>
-          <Button onClick={() => setShowForm(!editComment)}>
-            Toggle form
+          <Button onClick={() => setShowForm(!editComment)} ripple={false}>
+            Edit
+          </Button>
+          <Button onClick={() => setDeleteDialog(true)} raised theme="secondary-bg on-secondary">
+            Delete
           </Button>
         </GridCell>
       </Grid>
@@ -54,6 +61,14 @@ const CommentItem = ({
         onSuccess={() => setShowForm(false)}
       />
     )}
+    <SimpleDialog
+      title="Delete comment"
+      body="Are you sure do you want delete this comment?"
+      open={deleteDialogOpen}
+      onClose={() => setDeleteDialog(false)}
+      onAccept={() => onDelete(id)}
+      onCancel={() => setDeleteDialog(false)}
+    />
   </React.Fragment>
 )
 
@@ -66,6 +81,9 @@ CommentItem.propTypes = {
   voteScore: PropTypes.number,
   timestamp: PropTypes.number,
   body: PropTypes.string,
+  onDelete: PropTypes.func,
+  deleteDialogOpen: PropTypes.bool,
+  setDeleteDialog: PropTypes.func,
 }
 
 CommentItem.defaultProps = {
@@ -75,6 +93,9 @@ CommentItem.defaultProps = {
   voteScore: null,
   timestamp: null,
   body: '',
+  onDelete: () => false,
+  deleteDialogOpen: false,
+  setDeleteDialog: () => false,
 }
 
 export default CommentItem

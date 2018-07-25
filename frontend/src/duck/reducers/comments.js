@@ -143,14 +143,19 @@ const commentReducer = (state = initialState, action) => {
   }
   case COMMENT_DELETE_SUCCESS: {
     const { id } = action.payload
+    const comments = [...state.commentList]
 
     if (!id) {
       return state
     }
 
+    const index = comments.findIndex(commentItem => commentItem.id === id)
+    comments[index].deleted = true
+
     return {
       ...state,
       status: COMMENT_DELETE_SUCCESS,
+      commentList: comments,
     }
   }
   case COMMENT_DELETE_FAILED: {
