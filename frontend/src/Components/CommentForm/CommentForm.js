@@ -25,18 +25,21 @@ const CommentForm = ({
   onCancel,
   noCancel,
   loading,
+  type,
 }) => (
   <React.Fragment>
     {loading && 'Loading...'}
     {!loading && (
       <form name="newPost" onSubmit={onSubmit}>
-        <Grid>
-          <GridCell span={8} align="middle">
-            <Typography use="subtitle1">
-              Common, let your comment here
-            </Typography>
-          </GridCell>
-        </Grid>
+        {type === 'new' && (
+          <Grid>
+            <GridCell span={8} align="middle">
+              <Typography use="subtitle1">
+                Common, let your comment here
+              </Typography>
+            </GridCell>
+          </Grid>
+        )}
         <Grid>
           <GridCell span={8} align="middle">
             <TextField
@@ -92,16 +95,18 @@ CommentForm.propTypes = {
   onCancel: PropTypes.func,
   noCancel: PropTypes.bool,
   loading: PropTypes.bool,
+  type: PropTypes.string,
 }
 
 CommentForm.defaultProps = {
   body: '',
   author: '',
-  onSubmit: () => {},
+  onSubmit: () => false,
   onChange: () => {},
   onCancel: () => {},
   noCancel: false,
   loading: false,
+  type: 'new',
 }
 
 export default CommentForm

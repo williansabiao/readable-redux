@@ -66,7 +66,7 @@ const commentReducer = (state = initialState, action) => {
   }
   case COMMENT_GET_REQUEST: {
     return ({
-      ...initialState,
+      ...state,
       status: COMMENT_GET_REQUEST,
     })
   }
@@ -102,12 +102,13 @@ const commentReducer = (state = initialState, action) => {
   }
   case COMMENT_UPDATE_REQUEST: {
     return ({
-      ...initialState,
+      ...state,
       status: COMMENT_UPDATE_REQUEST,
     })
   }
   case COMMENT_UPDATE_SUCCESS: {
     const { comment } = action.payload
+    const comments = [...state.commentList]
 
     if (!(
       comment && comment.id && comment.timestamp
@@ -115,24 +116,28 @@ const commentReducer = (state = initialState, action) => {
       return state
     }
 
+    const index = comments.findIndex(commentItem => commentItem.id === comment.id)
+    comments[index] = comment
+
     return {
-      ...initialState,
+      ...state,
       status: COMMENT_UPDATE_SUCCESS,
       commentDetails: comment,
+      commentList: comments,
     }
   }
   case COMMENT_UPDATE_FAILED: {
     const { errorData } = action.payload
 
     return {
-      ...initialState,
+      ...state,
       status: COMMENT_UPDATE_FAILED,
       error: errorData,
     }
   }
   case COMMENT_DELETE_REQUEST: {
     return ({
-      ...initialState,
+      ...state,
       status: COMMENT_DELETE_REQUEST,
     })
   }
@@ -144,7 +149,7 @@ const commentReducer = (state = initialState, action) => {
     }
 
     return {
-      ...initialState,
+      ...state,
       status: COMMENT_DELETE_SUCCESS,
     }
   }
@@ -152,7 +157,7 @@ const commentReducer = (state = initialState, action) => {
     const { errorData } = action.payload
 
     return {
-      ...initialState,
+      ...state,
       status: COMMENT_DELETE_FAILED,
       error: errorData,
     }

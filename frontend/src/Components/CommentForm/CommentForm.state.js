@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { goBack } from 'react-router-redux'
 
-import { COMMENT_CREATE_SUCCESS } from '../../duck/actions/comments'
+import { COMMENT_CREATE_SUCCESS, COMMENT_UPDATE_SUCCESS } from '../../duck/actions/comments'
 import { createOrUpdateCommentFetch } from '../../duck/operations/comments'
 import CommentFormStateless from './CommentForm'
 
@@ -40,7 +40,8 @@ class CommentForm extends Component {
     const prevProps = this.props
 
     if (prevProps.commentStatus !== commentStatus) {
-      if (commentStatus === COMMENT_CREATE_SUCCESS) {
+      if (commentStatus === COMMENT_CREATE_SUCCESS
+        || commentStatus === COMMENT_UPDATE_SUCCESS) {
         this.setState({
           body: '',
           author: '',
@@ -84,7 +85,7 @@ class CommentForm extends Component {
   render() {
     return (
       <CommentFormStateless
-        onSuccess={this.handleSubmit}
+        onSubmit={this.handleSubmit}
         onChange={this.handleChange}
         {...this.state}
         {...this.props}
