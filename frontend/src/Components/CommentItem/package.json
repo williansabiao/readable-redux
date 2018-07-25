@@ -1,0 +1,5 @@
+{
+  "private": true,
+  "main": "CommentItem.state.js",
+  "name": "comment-item"
+}

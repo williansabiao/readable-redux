@@ -7,9 +7,11 @@ import {
   // Menu,
   // MenuAnchor,
   // MenuItem,
-  // Typography,
+  Typography,
 } from 'rmwc'
 
+import CommentForm from '../CommentForm'
+import CommentItem from '../CommentItem'
 import './comment-list.css'
 
 // const classRoot = 'comment-list'
@@ -17,13 +19,22 @@ import './comment-list.css'
 const CommentList = ({
   comments,
 }) => (
-  <Grid>
-    <GridCell span={12} align="left">
-      <pre>
-        {JSON.stringify(comments)}
-      </pre>
-    </GridCell>
-  </Grid>
+  <React.Fragment>
+    <Grid>
+      <GridCell span={12}>
+        <Typography use="headline4">
+          Comments
+        </Typography>
+      </GridCell>
+    </Grid>
+    <CommentForm noCancel />
+    {comments.map(comment => (
+      <CommentItem
+        key={comment.id}
+        {...comment}
+      />
+    ))}
+  </React.Fragment>
 )
 
 CommentList.propTypes = {

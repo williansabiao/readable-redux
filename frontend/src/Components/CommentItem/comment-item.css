@@ -1,0 +1,10 @@
+.post-list-item__title {
+  color: var(--mdc-theme-primary);
+  text-decoration: none;
+}
+.post-list-item__title:hover {
+  text-decoration: underline;
+}
+.post-list-item__menu-anchor {
+  cursor: pointer;
+}

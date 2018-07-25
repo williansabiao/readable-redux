@@ -1,0 +1,5 @@
+{
+  "private": true,
+  "main": "CommentForm.state.js",
+  "name": "comment-form"
+}

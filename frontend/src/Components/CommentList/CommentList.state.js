@@ -10,7 +10,6 @@ class CommentList extends Component {
   }
 
   componentWillMount() {
-    console.log('garotoooo', this.props.id, 'lalalalla')
     if (this.props.id) this.props.getComments(this.props.id)
   }
 
