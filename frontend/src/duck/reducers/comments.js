@@ -24,6 +24,7 @@ const initialState = {
     category: null,
     body: null,
     author: null,
+    voteScore: 0,
   },
   commentList: [],
   error: {},
@@ -33,7 +34,7 @@ const commentReducer = (state = initialState, action) => {
   switch (action.type) {
   case COMMENT_CREATE_REQUEST: {
     return ({
-      ...initialState,
+      ...state,
       staus: COMMENT_CREATE_REQUEST,
     })
   }
@@ -47,17 +48,18 @@ const commentReducer = (state = initialState, action) => {
     }
 
     return {
-      ...initialState,
+      ...state,
       status: COMMENT_CREATE_SUCCESS,
       added: true,
       commentDetails: comment,
+      commentList: [comment, ...state.commentList],
     }
   }
   case COMMENT_CREATE_FAILED: {
     const { errorData } = action.payload
 
     return {
-      ...initialState,
+      ...state,
       status: COMMENT_CREATE_FAILED,
       error: errorData,
     }

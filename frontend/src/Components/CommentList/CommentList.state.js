@@ -10,13 +10,15 @@ class CommentList extends Component {
   }
 
   componentWillMount() {
-    if (this.props.id) this.props.getComments(this.props.id)
+    if (this.props.parentId) this.props.getComments(this.props.parentId)
   }
 
   render() {
+    const { parentId, commentList } = this.props
     return (
       <CommentListStateless
-        comments={this.props.commentList}
+        parentId={parentId}
+        comments={commentList}
       />
     )
   }
@@ -33,7 +35,10 @@ const mapDispatchToProps = dispatch => ({
 CommentList.propTypes = {
   getComments: PropTypes.func.isRequired,
   commentList: PropTypes.arrayOf(PropTypes.any).isRequired,
-  id: PropTypes.string.isRequired,
+  parentId: PropTypes.string.isRequired,
+}
+
+CommentList.defaultProps = {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(CommentList)

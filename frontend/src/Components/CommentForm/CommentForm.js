@@ -24,58 +24,64 @@ const CommentForm = ({
   author,
   onCancel,
   noCancel,
+  loading,
 }) => (
-  <form name="newPost" onSubmit={onSubmit}>
-    <Grid>
-      <GridCell span={8} align="middle">
-        <Typography use="subtitle1">
-          Common, let your comment here
-        </Typography>
-      </GridCell>
-    </Grid>
-    <Grid>
-      <GridCell span={8} align="middle">
-        <TextField
-          onChange={event => handleChange(event, onChange)}
-          name="author"
-          id="author"
-          label="Author"
-          required
-          defaultValue={author}
-        />
-      </GridCell>
-    </Grid>
-    <Grid>
-      <GridCell span={8}>
-        <TextField
-          onChange={event => handleChange(event, onChange)}
-          name="body"
-          textarea
-          rows="2"
-          id="body"
-          label="Text"
-          required
-          fullwidth
-          defaultValue={body}
-        />
-      </GridCell>
-    </Grid>
-    <Grid align="right">
-      <GridCell span={5} />
-      <GridCell span={2}>
-        {!noCancel && (
-          <Button onClick={onCancel}>
-            Cancel
-          </Button>
-        )}
-      </GridCell>
-      <GridCell span={2}>
-        <Button type="submit" raised>
-          Save
-        </Button>
-      </GridCell>
-    </Grid>
-  </form>
+  <React.Fragment>
+    {loading && 'Loading...'}
+    {!loading && (
+      <form name="newPost" onSubmit={onSubmit}>
+        <Grid>
+          <GridCell span={8} align="middle">
+            <Typography use="subtitle1">
+              Common, let your comment here
+            </Typography>
+          </GridCell>
+        </Grid>
+        <Grid>
+          <GridCell span={8} align="middle">
+            <TextField
+              onChange={event => handleChange(event, onChange)}
+              name="author"
+              id="author"
+              label="Author"
+              required
+              defaultValue={author}
+            />
+          </GridCell>
+        </Grid>
+        <Grid>
+          <GridCell span={8}>
+            <TextField
+              onChange={event => handleChange(event, onChange)}
+              name="body"
+              textarea
+              rows="2"
+              id="body"
+              label="Text"
+              required
+              fullwidth
+              defaultValue={body}
+            />
+          </GridCell>
+        </Grid>
+        <Grid align="right">
+          <GridCell span={5} />
+          <GridCell span={2}>
+            {!noCancel && (
+              <Button onClick={onCancel}>
+                Cancel
+              </Button>
+            )}
+          </GridCell>
+          <GridCell span={2}>
+            <Button type="submit" raised>
+              Save
+            </Button>
+          </GridCell>
+        </Grid>
+      </form>
+    )}
+  </React.Fragment>
 )
 
 CommentForm.propTypes = {
@@ -85,6 +91,7 @@ CommentForm.propTypes = {
   onChange: PropTypes.func,
   onCancel: PropTypes.func,
   noCancel: PropTypes.bool,
+  loading: PropTypes.bool,
 }
 
 CommentForm.defaultProps = {
@@ -94,6 +101,7 @@ CommentForm.defaultProps = {
   onChange: () => {},
   onCancel: () => {},
   noCancel: false,
+  loading: false,
 }
 
 export default CommentForm

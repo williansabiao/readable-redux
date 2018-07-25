@@ -70,7 +70,7 @@ const PostDetails = ({
     {id.length > 0 && (
       <Grid>
         <GridCell span={12}>
-          <CommentList id={id} />
+          <CommentList parentId={id} />
         </GridCell>
       </Grid>
     )}

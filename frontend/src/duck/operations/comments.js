@@ -1,7 +1,7 @@
 import {
-  // createComment,
-  // createCommentSuccess,
-  // createCommentFailed,
+  createComment,
+  createCommentSuccess,
+  createCommentFailed,
   getComment,
   getCommentSuccess,
   getCommentFailed,
@@ -15,22 +15,21 @@ import {
 
 import api from '../../utils/api'
 
-// export const createCommentFetch = comment => (dispatch) => {
-//   dispatch(createComment())
-//   if (
-//     comment
-//     && comment.title
-//     && comment.category
-//     && comment.body
-//     && comment.author
-//   ) {
-//     return comments
-//       .createComment(comment)
-//       .then(resultComment => dispatch(createCommentSuccess(resultComment)))
-//       .catch(error => createCommentFailed(error))
-//   }
-//   return false
-// }
+export const createCommentFetch = comment => (dispatch) => {
+  dispatch(createComment())
+  if (
+    comment
+    && comment.parentId
+    && comment.body
+    && comment.author
+  ) {
+    return api
+      .createComment(comment)
+      .then(resultComment => dispatch(createCommentSuccess(resultComment)))
+      .catch(error => createCommentFailed(error))
+  }
+  return false
+}
 
 // export const updateCommentFetch = comment => (dispatch) => {
 //   dispatch(updateComment())
@@ -72,7 +71,7 @@ export const getCommentsFetch = (postId = null) => (dispatch) => {
 // }
 
 export default {
-  // createCommentFetch,
+  createCommentFetch,
   getCommentsFetch,
   // updateCommentFetch,
   // deleteCommentFetch,

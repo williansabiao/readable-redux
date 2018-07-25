@@ -61,6 +61,24 @@ const createPost = (post) => {
   }).then(res => res.json())
 }
 
+const createComment = (comment) => {
+  const id = uuidv1()
+  const timestamp = (new Date()).getTime()
+
+  return fetch(`${API_URL}/comments`, {
+    method: 'POST',
+    headers: {
+      ...headers,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      ...comment,
+      id,
+      timestamp,
+    }),
+  }).then(res => res.json())
+}
+
 const updatePost = (post) => {
   const timestamp = (new Date()).getTime()
 
@@ -104,5 +122,6 @@ export default {
   getCategories,
   updatePost,
   deletePost,
+  createComment,
   getPostComments,
 }

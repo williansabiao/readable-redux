@@ -18,6 +18,7 @@ import './comment-list.css'
 
 const CommentList = ({
   comments,
+  parentId,
 }) => (
   <React.Fragment>
     <Grid>
@@ -27,7 +28,7 @@ const CommentList = ({
         </Typography>
       </GridCell>
     </Grid>
-    <CommentForm noCancel />
+    <CommentForm parentId={parentId} noCancel />
     {comments.map(comment => (
       <CommentItem
         key={comment.id}
@@ -39,6 +40,7 @@ const CommentList = ({
 
 CommentList.propTypes = {
   comments: PropTypes.arrayOf(PropTypes.any),
+  parentId: PropTypes.string.isRequired,
 }
 
 CommentList.defaultProps = {

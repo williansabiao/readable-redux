@@ -7,6 +7,7 @@ import {
   Button,
 } from 'rmwc'
 
+import { formatToComments } from '../../utils/date'
 import CommentForm from '../CommentForm'
 import './comment-item.css'
 
@@ -20,13 +21,14 @@ const CommentItem = ({
   voteScore,
   timestamp,
   body,
+  parentId,
 }) => (
   <React.Fragment>
     {!editComment && (
       <Grid>
         <GridCell span={12} align="left">
           <p>
-            {`@${author} - ${timestamp}`}
+            {`@${author} - ${formatToComments(timestamp)}`}
           </p>
           <p>
             {body}
@@ -43,6 +45,7 @@ const CommentItem = ({
     {editComment && (
       <CommentForm
         id={id}
+        parentId={parentId}
         author={author}
         voteScore={voteScore}
         timestamp={timestamp}
@@ -57,6 +60,7 @@ CommentItem.propTypes = {
   editComment: PropTypes.bool.isRequired,
   setShowForm: PropTypes.func.isRequired,
   id: PropTypes.string,
+  parentId: PropTypes.string,
   author: PropTypes.string,
   voteScore: PropTypes.number,
   timestamp: PropTypes.number,
@@ -65,6 +69,7 @@ CommentItem.propTypes = {
 
 CommentItem.defaultProps = {
   id: '',
+  parentId: '',
   author: '',
   voteScore: null,
   timestamp: null,

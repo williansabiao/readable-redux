@@ -3,22 +3,41 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { goBack } from 'react-router-redux'
 
+import { COMMENT_CREATE_SUCCESS } from '../../duck/actions/comments'
+import { createCommentFetch } from '../../duck/operations/comments'
 import CommentFormStateless from './CommentForm'
 
 class CommentForm extends Component {
   state = {
     body: '',
     author: '',
+    parentId: null,
     id: null,
+    loading: false,
   }
 
   componentWillMount() {
-    const { id } = this.props
+    const { parentId } = this.props
 
-    if (id) {
+    if (parentId) {
       this.setState({
-        id,
+        parentId,
       })
+    }
+  }
+
+  componentWillReceiveProps({ commentStatus }) {
+    const prevProps = this.props
+
+    if (prevProps.commentStatus !== commentStatus) {
+      if (commentStatus === COMMENT_CREATE_SUCCESS) {
+        this.setState({
+          body: '',
+          author: '',
+          id: null,
+          loading: false,
+        })
+      }
     }
   }
 
@@ -32,7 +51,14 @@ class CommentForm extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault()
+    const { body, author, parentId } = this.state
 
+    this.setState({ loading: true })
+    this.props.createComment({
+      body,
+      author,
+      parentId,
+    })
     return false
   }
 
@@ -48,17 +74,24 @@ class CommentForm extends Component {
   }
 }
 
+const mapStateToProps = ({ comments }) => ({
+  commentStatus: comments.status,
+})
+
 const mapDispatchToProps = dispatch => ({
   goBackNavigation: () => dispatch(goBack()),
+  createComment: comment => dispatch(createCommentFetch(comment)),
 })
 
 CommentForm.propTypes = {
-  id: PropTypes.string,
+  parentId: PropTypes.string.isRequired,
   goBackNavigation: PropTypes.func.isRequired,
+  createComment: PropTypes.func.isRequired,
+  commentStatus: PropTypes.string,
 }
 
 CommentForm.defaultProps = {
-  id: undefined,
+  commentStatus: '',
 }
 
-export default connect(null, mapDispatchToProps)(CommentForm)
+export default connect(mapStateToProps, mapDispatchToProps)(CommentForm)
