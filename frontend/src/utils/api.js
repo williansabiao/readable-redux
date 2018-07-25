@@ -61,8 +61,9 @@ const createPost = (post) => {
   }).then(res => res.json())
 }
 
-const createComment = (comment) => {
-  const id = uuidv1()
+const createOrUpdateComment = (comment) => {
+  const isEdit = comment.id && comment.id.length > 0
+  const id = isEdit ? comment.id : uuidv1()
   const timestamp = (new Date()).getTime()
 
   return fetch(`${API_URL}/comments`, {
@@ -122,6 +123,6 @@ export default {
   getCategories,
   updatePost,
   deletePost,
-  createComment,
+  createOrUpdateComment,
   getPostComments,
 }

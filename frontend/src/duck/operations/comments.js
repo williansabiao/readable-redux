@@ -5,9 +5,9 @@ import {
   getComment,
   getCommentSuccess,
   getCommentFailed,
-  // updateComment,
-  // updateCommentSuccess,
-  // updateCommentFailed,
+  updateComment,
+  updateCommentSuccess,
+  updateCommentFailed,
   // deleteComment,
   // deleteCommentSuccess,
   // deleteCommentFailed,
@@ -15,8 +15,8 @@ import {
 
 import api from '../../utils/api'
 
-export const createCommentFetch = comment => (dispatch) => {
-  dispatch(createComment())
+export const createOrUpdateCommentFetch = comment => (dispatch) => {
+  dispatch(comment.id ? updateComment() : createComment())
   if (
     comment
     && comment.parentId
@@ -24,9 +24,11 @@ export const createCommentFetch = comment => (dispatch) => {
     && comment.author
   ) {
     return api
-      .createComment(comment)
-      .then(resultComment => dispatch(createCommentSuccess(resultComment)))
-      .catch(error => createCommentFailed(error))
+      .createOrUpdateComment(comment)
+      .then(resultComment => dispatch(
+        comment.id ? updateCommentSuccess(resultComment) : createCommentSuccess(resultComment),
+      ))
+      .catch(error => (comment.id ? updateCommentFailed(error) : createCommentFailed(error)))
   }
   return false
 }
@@ -71,7 +73,7 @@ export const getCommentsFetch = (postId = null) => (dispatch) => {
 // }
 
 export default {
-  createCommentFetch,
+  createOrUpdateCommentFetch,
   getCommentsFetch,
   // updateCommentFetch,
   // deleteCommentFetch,

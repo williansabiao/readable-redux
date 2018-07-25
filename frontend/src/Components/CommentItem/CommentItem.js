@@ -51,6 +51,7 @@ const CommentItem = ({
         timestamp={timestamp}
         body={body}
         onCancel={() => setShowForm(false)}
+        onSuccess={() => setShowForm(false)}
       />
     )}
   </React.Fragment>

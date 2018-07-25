@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import { goBack } from 'react-router-redux'
 
 import { COMMENT_CREATE_SUCCESS } from '../../duck/actions/comments'
-import { createCommentFetch } from '../../duck/operations/comments'
+import { createOrUpdateCommentFetch } from '../../duck/operations/comments'
 import CommentFormStateless from './CommentForm'
 
 class CommentForm extends Component {
@@ -14,14 +14,24 @@ class CommentForm extends Component {
     parentId: null,
     id: null,
     loading: false,
+    type: 'new',
   }
 
   componentWillMount() {
-    const { parentId } = this.props
+    const { parentId, id } = this.props
 
-    if (parentId) {
+    this.setState({
+      parentId,
+    })
+
+    if (id) {
+      const { body, author } = this.props
+
       this.setState({
-        parentId,
+        body,
+        author,
+        id,
+        type: 'edit',
       })
     }
   }
@@ -37,6 +47,7 @@ class CommentForm extends Component {
           id: null,
           loading: false,
         })
+        prevProps.onSuccess()
       }
     }
   }
@@ -51,21 +62,29 @@ class CommentForm extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault()
-    const { body, author, parentId } = this.state
-
-    this.setState({ loading: true })
-    this.props.createComment({
+    const {
       body,
       author,
       parentId,
+      id,
+    } = this.state
+
+    this.setState({ loading: true })
+
+    this.props.createOrUpdateComment({
+      body,
+      author,
+      parentId,
+      id,
     })
+
     return false
   }
 
   render() {
     return (
       <CommentFormStateless
-        onSubmit={this.handleSubmit}
+        onSuccess={this.handleSubmit}
         onChange={this.handleChange}
         {...this.state}
         {...this.props}
@@ -80,18 +99,26 @@ const mapStateToProps = ({ comments }) => ({
 
 const mapDispatchToProps = dispatch => ({
   goBackNavigation: () => dispatch(goBack()),
-  createComment: comment => dispatch(createCommentFetch(comment)),
+  createOrUpdateComment: comment => dispatch(createOrUpdateCommentFetch(comment)),
 })
 
 CommentForm.propTypes = {
   parentId: PropTypes.string.isRequired,
   goBackNavigation: PropTypes.func.isRequired,
-  createComment: PropTypes.func.isRequired,
+  createOrUpdateComment: PropTypes.func.isRequired,
   commentStatus: PropTypes.string,
+  id: PropTypes.string,
+  author: PropTypes.string,
+  body: PropTypes.string,
+  onSuccess: PropTypes.func,
 }
 
 CommentForm.defaultProps = {
   commentStatus: '',
+  id: undefined,
+  author: undefined,
+  body: undefined,
+  onSuccess: () => {},
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(CommentForm)
