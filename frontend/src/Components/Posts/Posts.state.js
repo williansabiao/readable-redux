@@ -5,7 +5,6 @@ import PropTypes from 'prop-types'
 import postsOperation from '../../duck/operations/posts'
 import { deletePostFetch } from '../../duck/operations/post'
 import { POST_DELETE_SUCCESS } from '../../duck/actions/post'
-import { POSTS_LIST_SUCCESS } from '../../duck/actions/posts'
 import PostsComponent from './Posts'
 
 class Posts extends Component {
@@ -24,8 +23,7 @@ class Posts extends Component {
   }) {
     const prevProps = this.props
     if (postsStatus !== prevProps.postsStatus) {
-      let allPosts = []
-      if (postsStatus === POSTS_LIST_SUCCESS) allPosts = [...posts]
+      let allPosts = [...posts]
       if (category) allPosts = this.filterPosts(allPosts, category)
 
       this.setState({ posts: allPosts })
@@ -44,6 +42,8 @@ class Posts extends Component {
 
   onDelete = id => () => this.props.deletePost(id)
 
+  onVote = (vote, id) => this.props.votePost(vote, id)
+
   filterPosts = (posts = [], category = '') => (
     category && category.length > 0 ? posts.filter(post => post.category === category) : posts
   )
@@ -53,6 +53,7 @@ class Posts extends Component {
       <PostsComponent
         posts={this.state.posts}
         onDelete={this.onDelete}
+        onVote={this.onVote}
       />
     )
   }
@@ -66,6 +67,7 @@ const mapStateToProps = ({ posts, post }) => ({
 
 const mapDispatchToProps = dispatch => ({
   getPosts: () => dispatch(postsOperation.getPosts()),
+  votePost: (vote, id) => dispatch(postsOperation.votePostFetch(vote, id)),
   deletePost: id => dispatch(deletePostFetch(id)),
 })
 
@@ -76,6 +78,7 @@ Posts.propTypes = {
   category: PropTypes.string,
   postsStatus: PropTypes.string.isRequired,
   deletePost: PropTypes.func.isRequired,
+  votePost: PropTypes.func.isRequired,
 }
 
 Posts.defaultProps = {

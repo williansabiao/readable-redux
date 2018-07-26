@@ -26,6 +26,7 @@ const CommentItem = ({
   onDelete,
   deleteDialogOpen,
   setDeleteDialog,
+  onVote,
 }) => (
   <React.Fragment>
     {!editComment && (
@@ -37,9 +38,19 @@ const CommentItem = ({
           <p>
             {body}
           </p>
-          <p>
+          <div>
             {`Votes: ${voteScore}`}
-          </p>
+            <div onClick={() => onVote(1, id)} role="presentation">
+              <i className="material-icons">
+                keyboard_arrow_up
+              </i>
+            </div>
+            <div onClick={() => onVote(-1, id)} role="presentation">
+              <i className="material-icons">
+                keyboard_arrow_down
+              </i>
+            </div>
+          </div>
           <Button onClick={() => setShowForm(!editComment)} ripple={false}>
             Edit
           </Button>
@@ -84,6 +95,7 @@ CommentItem.propTypes = {
   onDelete: PropTypes.func,
   deleteDialogOpen: PropTypes.bool,
   setDeleteDialog: PropTypes.func,
+  onVote: PropTypes.func,
 }
 
 CommentItem.defaultProps = {
@@ -96,6 +108,7 @@ CommentItem.defaultProps = {
   onDelete: () => false,
   deleteDialogOpen: false,
   setDeleteDialog: () => false,
+  onVote: () => false,
 }
 
 export default CommentItem

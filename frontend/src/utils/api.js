@@ -62,8 +62,9 @@ const createOrUpdateComment = (comment) => {
   const isEdit = comment.id && comment.id.length > 0
   const id = isEdit ? comment.id : uuidv1()
   const timestamp = (new Date()).getTime()
+  const additionalUrl = isEdit ? `/${comment.id}` : ''
 
-  return fetch(`${API_URL}/comments`, {
+  return fetch(`${API_URL}/comments${additionalUrl}`, {
     method: isEdit ? 'PUT' : 'POST',
     headers: {
       ...headers,
@@ -118,6 +119,31 @@ const getCategories = () => (
     .then(res => res.json())
 )
 
+const voteComment = (vote, id) => (
+  fetch(`${API_URL}/comments/${id}`, {
+    method: 'POST',
+    headers: {
+      ...headers,
+    },
+    body: JSON.stringify({
+      option: vote,
+    }),
+  }).then(res => res.json())
+)
+
+const votePost = (vote, id) => (
+  fetch(`${API_URL}/posts/${id}`, {
+    method: 'POST',
+    headers: {
+      ...headers,
+    },
+    body: JSON.stringify({
+      option: vote,
+    }),
+  }).then(res => res.json())
+)
+
+
 export default {
   createPost,
   getPost,
@@ -128,4 +154,6 @@ export default {
   createOrUpdateComment,
   getPostComments,
   deleteComment,
+  voteComment,
+  votePost,
 }

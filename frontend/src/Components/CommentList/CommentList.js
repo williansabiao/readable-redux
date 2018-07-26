@@ -20,6 +20,7 @@ const CommentList = ({
   comments,
   parentId,
   onDelete,
+  onVote,
 }) => (
   <React.Fragment>
     <Grid>
@@ -35,6 +36,7 @@ const CommentList = ({
         key={comment.id}
         {...comment}
         onDelete={onDelete}
+        onVote={onVote}
       />
     ))}
   </React.Fragment>
@@ -44,6 +46,7 @@ CommentList.propTypes = {
   comments: PropTypes.arrayOf(PropTypes.any),
   parentId: PropTypes.string.isRequired,
   onDelete: PropTypes.func.isRequired,
+  onVote: PropTypes.func.isRequired,
 }
 
 CommentList.defaultProps = {

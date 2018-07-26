@@ -11,6 +11,9 @@ import {
   deleteComment,
   deleteCommentSuccess,
   deleteCommentFailed,
+  voteComment,
+  voteCommentSuccess,
+  voteCommentFailed,
 } from '../actions/comments'
 
 import api from '../../utils/api'
@@ -54,8 +57,18 @@ export const deleteCommentFetch = id => (dispatch) => {
   return false
 }
 
+export const voteCommentFetch = (sum = -1, commentId = '') => (dispatch) => {
+  dispatch(voteComment())
+
+  return api
+    .voteComment(sum > 0 ? 'upVote' : 'downVote', commentId)
+    .then(() => dispatch(voteCommentSuccess(sum, commentId)))
+    .catch(error => voteCommentFailed(error))
+}
+
 export default {
   createOrUpdateCommentFetch,
   getCommentsFetch,
   deleteCommentFetch,
+  voteCommentFetch,
 }

@@ -12,6 +12,9 @@ import {
   COMMENT_DELETE_REQUEST,
   COMMENT_DELETE_FAILED,
   COMMENT_DELETE_SUCCESS,
+  COMMENT_VOTE_REQUEST,
+  COMMENT_VOTE_FAILED,
+  COMMENT_VOTE_SUCCESS,
 } from '../actions/comments'
 
 const initialState = {
@@ -164,6 +167,38 @@ const commentReducer = (state = initialState, action) => {
     return {
       ...state,
       status: COMMENT_DELETE_FAILED,
+      error: errorData,
+    }
+  }
+  case COMMENT_VOTE_REQUEST: {
+    return ({
+      ...state,
+      status: COMMENT_VOTE_REQUEST,
+    })
+  }
+  case COMMENT_VOTE_SUCCESS: {
+    const { sum, commentId } = action.payload
+    const comments = [...state.commentList]
+
+    if (!commentId || !sum) {
+      return state
+    }
+
+    const index = comments.findIndex(commentItem => commentItem.id === commentId)
+    comments[index].voteScore += sum
+
+    return {
+      ...state,
+      status: COMMENT_VOTE_SUCCESS,
+      commentList: comments,
+    }
+  }
+  case COMMENT_VOTE_FAILED: {
+    const { errorData } = action.payload
+
+    return {
+      ...state,
+      status: COMMENT_VOTE_FAILED,
       error: errorData,
     }
   }

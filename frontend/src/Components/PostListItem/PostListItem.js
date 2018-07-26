@@ -19,7 +19,7 @@ const PostListItem = ({
   author,
   comments,
   score,
-  voteCallback,
+  onVote,
   editURL,
   onDelete,
   id,
@@ -69,12 +69,12 @@ const PostListItem = ({
     </GridCell>
     <GridCell span={1} align="center">
       <Typography use="body1">
-        <div onClick={voteCallback(-1)} role="presentation">
+        <div onClick={() => onVote(1, id)} role="presentation">
           <i className="material-icons">
             keyboard_arrow_up
           </i>
         </div>
-        <div onClick={voteCallback(1)} role="presentation">
+        <div onClick={() => onVote(-1, id)} role="presentation">
           <i className="material-icons">
             keyboard_arrow_down
           </i>
@@ -120,7 +120,7 @@ PostListItem.propTypes = {
   author: PropTypes.string.isRequired,
   comments: PropTypes.number.isRequired,
   score: PropTypes.number.isRequired,
-  voteCallback: PropTypes.func.isRequired,
+  onVote: PropTypes.func.isRequired,
   editURL: PropTypes.string.isRequired,
   menuIsOpen: PropTypes.bool,
   goToURL: PropTypes.func.isRequired,
