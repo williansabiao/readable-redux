@@ -14,3 +14,10 @@
   text-decoration: underline;
   color: grey;
 }
+.add-new-post-btn {
+  float: right;
+}
+.chip-selected {
+  background-color: var(--mdc-theme-primary) !important;
+  color: #fff !important;
+}

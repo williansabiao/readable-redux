@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
-import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
+import { push } from 'react-router-redux'
 
-import categoriesOperations from '../../duck/operations/categories'
+import { fetchGetCategories } from '../../duck/operations/categories'
 import CategoryListComponent from './CategoryList'
 
 class CategoryList extends Component {
@@ -11,9 +12,13 @@ class CategoryList extends Component {
   }
 
   render() {
-    const { categories, ...rest } = this.props
+    const { categories, navigateTo, ...rest } = this.props
     return (
-      <CategoryListComponent categories={categories} {...rest} />
+      <CategoryListComponent
+        categories={categories}
+        navigateTo={navigateTo}
+        {...rest}
+      />
     )
   }
 }
@@ -23,12 +28,14 @@ const mapStateToProps = ({ categories }) => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  getCategories: () => dispatch(categoriesOperations.fetchGetCategories()),
+  getCategories: () => dispatch(fetchGetCategories()),
+  navigateTo: query => dispatch(push(query)),
 })
 
 CategoryList.propTypes = {
   getCategories: PropTypes.func.isRequired,
   categories: PropTypes.arrayOf(PropTypes.any).isRequired,
+  navigateTo: PropTypes.func.isRequired,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(CategoryList)

@@ -1,7 +1,5 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Link } from 'react-router-dom'
-// import { connect } from 'react-redux'
 
 import Posts from '../../Components/Posts'
 import CategoryList from '../../Components/CategoryList'
@@ -10,10 +8,7 @@ const Home = ({
   match,
 }) => (
   <div>
-    <CategoryList showAll />
-    <Link to="/add-post" className="btn btn-warning" role="button">
-      Adicionar um post
-    </Link>
+    <CategoryList showAll categorySelected={match.params.category || ''} />
     <Posts category={match.params.category || null} />
   </div>
 )

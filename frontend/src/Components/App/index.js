@@ -1,11 +1,18 @@
 import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import PropTypes from 'prop-types'
+import {
+  TopAppBar,
+  TopAppBarRow,
+  TopAppBarSection,
+  // TopAppBarNavigationIcon,
+  // TopAppBarActionItem,
+  TopAppBarTitle,
+} from 'rmwc/TopAppBar'
+
+import { Link } from 'react-router-dom'
 
 import Feedback from '../Feedback'
 import Routes from './Routes'
 
-import logo from './logo.svg'
 import './App.css'
 
 class App extends Component {
@@ -16,28 +23,25 @@ class App extends Component {
     },
   }
 
-  componentWillReceiveProps({ feedback }) {
-    // setTimeout(() => {
-    //   this.setState({
-    //     feedback: {
-    //       isOpen: true,
-    //       message: feedback.message,
-    //     },
-    //   })
-    // }, 500)
-  }
-
   render() {
     const { feedback } = this.state
 
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">
-            Welcome to React
-          </h1>
-        </header>
+        <div className="App__header">
+          <TopAppBar>
+            <TopAppBarRow>
+              <TopAppBarSection alignStart>
+                {/* <TopAppBarNavigationIcon use="menu" /> */}
+                <TopAppBarTitle>
+                  <Link to="/" className="App__header-title">
+                    Readable Redux App
+                  </Link>
+                </TopAppBarTitle>
+              </TopAppBarSection>
+            </TopAppBarRow>
+          </TopAppBar>
+        </div>
         <div className="App container">
           <Routes />
         </div>
@@ -47,14 +51,5 @@ class App extends Component {
   }
 }
 
-function mapStateToProps({ feedback }) {
-  return {
-    feedback,
-  }
-}
 
-App.propTypes = {
-  feedback: PropTypes.objectOf(PropTypes.any).isRequired,
-}
-
-export default connect(mapStateToProps, null)(App)
+export default App
