@@ -1,13 +1,17 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import {
-  Grid,
-  GridCell,
   Menu,
   MenuAnchor,
   MenuItem,
   Typography,
+  Card,
+  CardPrimaryAction,
+  CardAction,
+  CardActions,
+  CardActionButtons,
+  CardActionIcons,
+  Icon,
 } from 'rmwc'
 
 import './post-list-item.css'
@@ -27,72 +31,51 @@ const PostListItem = ({
   goToURL,
   setMenuOpen,
 }) => (
-  <Grid>
-    <GridCell span={8} align="left">
-      <p>
-        <Link to={`/post/${id}`} className={`${classRoot}__title`}>
-          <Typography use="headline6">
-            {title}
-          </Typography>
-          <br />
-          <Typography use="subtitle1">
-            {author}
-          </Typography>
-        </Link>
-      </p>
-    </GridCell>
-    <GridCell span={1} align="center">
-      <p>
-        <Typography use="body1">
-          <i className="material-icons">
-            comment
-          </i>
-          <br />
-          <span>
-            {comments}
-          </span>
+  <Card className={`${classRoot}__card`}>
+    <CardPrimaryAction onClick={goToURL(`/post/${id}`)}>
+      <div style={{ padding: '0 1rem 1rem 1rem' }}>
+        <Typography use="headline6" tag="h2">
+          {title}
         </Typography>
-      </p>
-    </GridCell>
-    <GridCell span={1} align="center">
-      <p>
-        <Typography use="body1">
-          <i className="material-icons">
-            star
-          </i>
-          <br />
-          <span>
-            {score}
-          </span>
+        <Typography
+          use="subtitle2"
+          tag="h3"
+          theme="text-secondary-on-background"
+          style={{ marginTop: '-1rem' }}
+        >
+          {`by ${author}`}
         </Typography>
-      </p>
-    </GridCell>
-    <GridCell span={1} align="center">
-      <Typography use="body1">
-        <div onClick={() => onVote(1, id)} role="presentation">
-          <i className="material-icons">
-            keyboard_arrow_up
-          </i>
-        </div>
-        <div onClick={() => onVote(-1, id)} role="presentation">
-          <i className="material-icons">
-            keyboard_arrow_down
-          </i>
-        </div>
-        <br />
-        <span>
-          Vote
-        </span>
-      </Typography>
-    </GridCell>
-    <GridCell span={1} align="center">
-      <br />
+      </div>
+    </CardPrimaryAction>
+    <CardActions>
+      <CardActionButtons>
+        <CardAction>
+          <Icon use="mode_comment" />&nbsp;&nbsp;
+          {comments}
+        </CardAction>
+        <CardAction>
+          <Icon use="star" />&nbsp;&nbsp;
+          {score}
+        </CardAction>
+      </CardActionButtons>
+      <CardActionIcons>
+        <CardAction
+          onLabel="Up vote"
+          onContent="keyboard_arrow_up"
+          offLabel="Up vote"
+          offContent="keyboard_arrow_up"
+          onClick={() => onVote(1, id)}
+        />
+        <CardAction
+          onLabel="Down vote"
+          onContent="keyboard_arrow_down"
+          offLabel="Down vote"
+          offContent="keyboard_arrow_down"
+          onClick={() => onVote(-1, id)}
+        />
+        <CardAction use="more_vert" onClick={() => setMenuOpen(!menuIsOpen)} />
+      </CardActionIcons>
       <MenuAnchor className={`${classRoot}__menu-anchor`}>
-        <Typography use="ico" onClick={() => setMenuOpen(!menuIsOpen)}>
-          <i className="material-icons">
-            more_vert
-          </i>
-        </Typography>
         <Menu
           open={menuIsOpen}
           onClose={() => setMenuOpen(false)}
@@ -110,8 +93,8 @@ const PostListItem = ({
           </MenuItem>
         </Menu>
       </MenuAnchor>
-    </GridCell>
-  </Grid>
+    </CardActions>
+  </Card>
 )
 
 PostListItem.propTypes = {

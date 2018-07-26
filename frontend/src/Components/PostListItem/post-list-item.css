@@ -8,3 +8,8 @@
 .post-list-item__menu-anchor {
   cursor: pointer;
 }
+.post-list-item__card {
+  max-width: 21em;
+  margin: 10px;
+  justify-content: space-between;
+}

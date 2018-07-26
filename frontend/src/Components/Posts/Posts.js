@@ -3,12 +3,14 @@ import PropTypes from 'prop-types'
 
 import PostListItem from '../PostListItem'
 
+import './posts.css'
+
 const Posts = ({
   posts,
   onDelete,
   onVote,
 }) => (
-  <div>
+  <div className="post-list">
     {posts.length > 0 && posts.map(post => (
       <PostListItem
         key={post.id}
