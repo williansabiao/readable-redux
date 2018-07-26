@@ -11,6 +11,7 @@ import {
   deletePost,
   deletePostSuccess,
   deletePostFailed,
+  postResetReducer,
 } from '../actions/post'
 
 import posts from '../../utils/api'
@@ -74,9 +75,12 @@ export const deletePostFetch = id => (dispatch) => {
   return false
 }
 
+export const postReset = postResetReducer
+
 export default {
   createPostFetch,
   getPostFetch,
   updatePostFetch,
   deletePostFetch,
+  postResetReducer,
 }

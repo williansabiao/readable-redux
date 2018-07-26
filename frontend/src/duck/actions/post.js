@@ -14,6 +14,8 @@ export const POST_DELETE_REQUEST = 'POST_DELETE_REQUEST'
 export const POST_DELETE_FAILED = 'POST_DELETE_FAILED'
 export const POST_DELETE_SUCCESS = 'POST_DELETE_SUCCESS'
 
+export const POST_RESET = 'POST_RESET'
+
 export const createPost = () => ({
   type: POST_CREATE_REQUEST,
 })
@@ -70,6 +72,10 @@ export const deletePostFailed = errorData => ({
   payload: { errorData },
 })
 
+export const postResetReducer = () => ({
+  type: POST_RESET,
+})
+
 export default {
   createPost,
   createPostSuccess,
@@ -83,4 +89,5 @@ export default {
   deletePost,
   deletePostSuccess,
   deletePostFailed,
+  postResetReducer,
 }

@@ -12,6 +12,7 @@ import {
   POST_DELETE_REQUEST,
   POST_DELETE_FAILED,
   POST_DELETE_SUCCESS,
+  POST_RESET,
 } from '../actions/post'
 
 const initialState = {
@@ -148,6 +149,8 @@ const postReducer = (state = initialState, action) => {
       error: errorData,
     }
   }
+  case POST_RESET:
+    return initialState
   default:
     return state
   }

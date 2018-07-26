@@ -3,7 +3,12 @@ import { connect } from 'react-redux'
 import { push } from 'react-router-redux'
 import PropTypes from 'prop-types'
 
-import { createPostFetch, getPostFetch, updatePostFetch } from '../../duck/operations/post'
+import {
+  createPostFetch,
+  getPostFetch,
+  updatePostFetch,
+  postReset as postResetReducer,
+} from '../../duck/operations/post'
 import { fetchGetCategories } from '../../duck/operations/categories'
 import { showFeedback as showFeedbackAction } from '../../duck/actions/feedback'
 import { POST_UPDATE_SUCCESS, POST_GET_SUCCESS } from '../../duck/actions/post'
@@ -53,6 +58,10 @@ class AddPostPage extends Component {
     }
   }
 
+  componentWillUnmount() {
+    this.props.postReset()
+  }
+
   savePost = (post) => {
     const { addPost, showFeedback, updatePost } = this.props
     const { type, id } = this.state
@@ -99,6 +108,7 @@ const mapDispatchToProps = dispatch => ({
   navigateTo: location => dispatch(push(location)),
   showFeedback: ({ message }) => dispatch(showFeedbackAction({ message })),
   getCategories: () => dispatch(fetchGetCategories()),
+  postReset: () => dispatch(postResetReducer()),
 })
 
 AddPostPage.propTypes = {
@@ -111,6 +121,7 @@ AddPostPage.propTypes = {
   post: PropTypes.objectOf(PropTypes.any).isRequired,
   categories: PropTypes.arrayOf(PropTypes.object).isRequired,
   match: PropTypes.objectOf(PropTypes.any).isRequired,
+  postReset: PropTypes.func.isRequired,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(AddPostPage)
