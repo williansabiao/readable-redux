@@ -7,6 +7,7 @@ class CommentItem extends Component {
   state = {
     editComment: false,
     deleteDialogOpen: false,
+    menuIsOpen: false,
   }
 
   onDelete = id => this.props.onDelete(id)
@@ -15,8 +16,10 @@ class CommentItem extends Component {
 
   setDeleteDialog = value => this.setState({ deleteDialogOpen: value })
 
+  setMenuOpen = value => this.setState({ menuIsOpen: value })
+
   render() {
-    const { deleteDialogOpen, editComment } = this.state
+    const { deleteDialogOpen, editComment, menuIsOpen } = this.state
 
     return (
       <CommentItemStateless
@@ -25,6 +28,8 @@ class CommentItem extends Component {
         setShowForm={this.setShowForm}
         deleteDialogOpen={deleteDialogOpen}
         setDeleteDialog={this.setDeleteDialog}
+        setMenuOpen={this.setMenuOpen}
+        menuIsOpen={menuIsOpen}
         onDelete={this.onDelete} // override what comes from this.props
       />
     )

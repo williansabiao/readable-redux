@@ -49,7 +49,7 @@ const PostListItem = ({
     </CardPrimaryAction>
     <CardActions>
       <CardActionButtons>
-        <CardAction>
+        <CardAction onClick={goToURL(`/post/${id}#comments`)}>
           <Icon use="mode_comment" />&nbsp;&nbsp;
           {comments}
         </CardAction>

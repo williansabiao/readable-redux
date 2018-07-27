@@ -2,17 +2,25 @@ import React from 'react'
 // import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import {
-  Grid,
-  GridCell,
-  Button,
   SimpleDialog,
+  Menu,
+  MenuAnchor,
+  MenuItem,
+  Typography,
+  Card,
+  CardPrimaryAction,
+  CardAction,
+  CardActions,
+  CardActionButtons,
+  CardActionIcons,
+  Icon,
 } from 'rmwc'
 
 import { formatToComments } from '../../utils/date'
 import CommentForm from '../CommentForm'
 import './comment-item.css'
 
-// const classRoot = 'comment-list'
+const classRoot = 'comment-item'
 
 const CommentItem = ({
   editComment,
@@ -27,38 +35,70 @@ const CommentItem = ({
   deleteDialogOpen,
   setDeleteDialog,
   onVote,
+  setMenuOpen,
+  menuIsOpen,
 }) => (
   <React.Fragment>
     {!editComment && (
-      <Grid>
-        <GridCell span={12} align="left">
-          <p>
-            {`@${author} - ${formatToComments(timestamp)}`}
-          </p>
-          <p>
-            {body}
-          </p>
-          <div>
-            {`Votes: ${voteScore}`}
-            <div onClick={() => onVote(1, id)} role="presentation">
-              <i className="material-icons">
-                keyboard_arrow_up
-              </i>
-            </div>
-            <div onClick={() => onVote(-1, id)} role="presentation">
-              <i className="material-icons">
-                keyboard_arrow_down
-              </i>
-            </div>
+      <Card className={`${classRoot}__card`}>
+        <CardPrimaryAction>
+          <div style={{ padding: '0 1rem 1rem 1rem' }}>
+            <Typography
+              use="subtitle2"
+              tag="h3"
+              theme="text-secondary-on-background"
+            >
+              {`${formatToComments(timestamp)} - by ${author}`}
+            </Typography>
+            <Typography use="body1" tag="div" theme="text-secondary-on-background">
+              {body}
+            </Typography>
           </div>
-          <Button onClick={() => setShowForm(!editComment)} ripple={false}>
-            Edit
-          </Button>
-          <Button onClick={() => setDeleteDialog(true)} raised theme="secondary-bg on-secondary">
-            Delete
-          </Button>
-        </GridCell>
-      </Grid>
+        </CardPrimaryAction>
+        <CardActions>
+          <CardActionButtons>
+            <CardAction fullBleed>
+              <Icon use="star" />&nbsp;&nbsp;
+              {voteScore}
+            </CardAction>
+          </CardActionButtons>
+          <CardActionIcons>
+            <CardAction
+              onLabel="Up vote"
+              onContent="keyboard_arrow_up"
+              offLabel="Up vote"
+              offContent="keyboard_arrow_up"
+              onClick={() => onVote(1, id)}
+            />
+            <CardAction
+              onLabel="Down vote"
+              onContent="keyboard_arrow_down"
+              offLabel="Down vote"
+              offContent="keyboard_arrow_down"
+              onClick={() => onVote(-1, id)}
+            />
+            <CardAction use="more_vert" onClick={() => setMenuOpen(!menuIsOpen)} />
+          </CardActionIcons>
+          <MenuAnchor className={`${classRoot}__menu-anchor`}>
+            <Menu
+              open={menuIsOpen}
+              onClose={() => setMenuOpen(false)}
+            >
+              <MenuItem onClick={() => setShowForm(!editComment)}>
+                Edit
+              </MenuItem>
+              <MenuItem
+                onClick={() => {
+                  setDeleteDialog(true)
+                  setMenuOpen(false)
+                }}
+              >
+                Delete
+              </MenuItem>
+            </Menu>
+          </MenuAnchor>
+        </CardActions>
+      </Card>
     )}
     {editComment && (
       <CommentForm
@@ -96,6 +136,8 @@ CommentItem.propTypes = {
   deleteDialogOpen: PropTypes.bool,
   setDeleteDialog: PropTypes.func,
   onVote: PropTypes.func,
+  setMenuOpen: PropTypes.func,
+  menuIsOpen: PropTypes.bool,
 }
 
 CommentItem.defaultProps = {
@@ -109,6 +151,8 @@ CommentItem.defaultProps = {
   deleteDialogOpen: false,
   setDeleteDialog: () => false,
   onVote: () => false,
+  setMenuOpen: () => false,
+  menuIsOpen: false,
 }
 
 export default CommentItem

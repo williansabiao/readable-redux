@@ -22,7 +22,7 @@ const CommentList = ({
   onDelete,
   onVote,
 }) => (
-  <React.Fragment>
+  <div id="comments">
     <Grid>
       <GridCell span={12}>
         <Typography use="headline4">
@@ -39,7 +39,7 @@ const CommentList = ({
         onVote={onVote}
       />
     ))}
-  </React.Fragment>
+  </div>
 )
 
 CommentList.propTypes = {
