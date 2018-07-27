@@ -58,6 +58,7 @@ const postsReducer = (state = initialState, action) => {
     }
 
     const index = posts.findIndex(commentItem => commentItem.id === id)
+    if (index === -1) return state
     posts[index].voteScore += sum
 
     return {

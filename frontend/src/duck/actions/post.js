@@ -14,6 +14,10 @@ export const POST_DELETE_REQUEST = 'POST_DELETE_REQUEST'
 export const POST_DELETE_FAILED = 'POST_DELETE_FAILED'
 export const POST_DELETE_SUCCESS = 'POST_DELETE_SUCCESS'
 
+export const POST_VOTE_REQUEST = 'POST_VOTE_REQUEST'
+export const POST_VOTE_FAILED = 'POST_VOTE_FAILED'
+export const POST_VOTE_SUCCESS = 'POST_VOTE_SUCCESS'
+
 export const POST_RESET = 'POST_RESET'
 
 export const createPost = () => ({

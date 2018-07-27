@@ -57,7 +57,7 @@ const CommentItem = ({
         </CardPrimaryAction>
         <CardActions>
           <CardActionButtons>
-            <CardAction fullBleed>
+            <CardAction>
               <Icon use="star" />&nbsp;&nbsp;
               {voteScore}
             </CardAction>

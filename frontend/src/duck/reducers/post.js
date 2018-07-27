@@ -13,6 +13,9 @@ import {
   POST_DELETE_FAILED,
   POST_DELETE_SUCCESS,
   POST_RESET,
+  POST_VOTE_REQUEST,
+  POST_VOTE_FAILED,
+  POST_VOTE_SUCCESS,
 } from '../actions/post'
 
 const initialState = {
@@ -25,6 +28,7 @@ const initialState = {
     category: null,
     body: null,
     author: null,
+    voteScore: null,
   },
   error: {},
 }
@@ -146,6 +150,37 @@ const postReducer = (state = initialState, action) => {
     return {
       ...initialState,
       status: POST_DELETE_FAILED,
+      error: errorData,
+    }
+  }
+  case POST_VOTE_REQUEST: {
+    return ({
+      ...state,
+      status: POST_VOTE_REQUEST,
+    })
+  }
+  case POST_VOTE_SUCCESS: {
+    const { sum, id } = action.payload
+
+    if (!id || !sum) {
+      return state
+    }
+
+    return {
+      ...state,
+      status: POST_VOTE_SUCCESS,
+      postDetails: {
+        ...state.postDetails,
+        voteScore: state.postDetails.voteScore + sum,
+      },
+    }
+  }
+  case POST_VOTE_FAILED: {
+    const { errorData } = action.payload
+
+    return {
+      ...state,
+      status: POST_VOTE_FAILED,
       error: errorData,
     }
   }

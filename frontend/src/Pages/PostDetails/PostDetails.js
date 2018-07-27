@@ -6,6 +6,8 @@ import {
   GridCell,
   Typography,
   GridInner,
+  Button,
+  ButtonIcon,
 } from 'rmwc'
 
 import CommentList from '../../Components/CommentList'
@@ -21,6 +23,7 @@ const PostDetails = ({
   body,
   commentCount,
   voteScore,
+  onVote,
 }) => (
   <React.Fragment>
     <Grid className={setClass('center')}>
@@ -36,12 +39,12 @@ const PostDetails = ({
       <GridCell span={3} />
       <GridCell span={6} align="center">
         <GridInner>
-          <GridCell span={5} align="center">
+          <GridCell span={4} align="center">
             <Typography use="subtitle1">
               {`By: ${author}`}
             </Typography>
           </GridCell>
-          <GridCell span={5} align="center">
+          <GridCell span={4} align="center">
             <Typography use="body1">
               {`${commentCount} comments`}
             </Typography>
@@ -55,6 +58,20 @@ const PostDetails = ({
             <Typography use="body1">
               {voteScore}
             </Typography>
+          </GridCell>
+          <GridCell span={2} align="top" className={setClass('btn-wrapper')}>
+            <Button
+              onClick={() => onVote(1, id)}
+              className={setClass('btn')}
+            >
+              <ButtonIcon use="keyboard_arrow_up" />
+            </Button>
+            <Button
+              onClick={() => onVote(-1, id)}
+              className={setClass('btn')}
+            >
+              <ButtonIcon use="keyboard_arrow_down" />
+            </Button>
           </GridCell>
         </GridInner>
       </GridCell>
@@ -84,6 +101,7 @@ PostDetails.propTypes = {
   commentCount: PropTypes.number.isRequired,
   voteScore: PropTypes.number.isRequired,
   body: PropTypes.string.isRequired,
+  onVote: PropTypes.func.isRequired,
 }
 
 export default PostDetails
