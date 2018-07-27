@@ -14,10 +14,7 @@ const Posts = ({
     {posts.length > 0 && posts.map(post => (
       <PostListItem
         key={post.id}
-        id={post.id}
-        title={post.title}
-        author={post.author}
-        comments={post.commentCount}
+        {...post}
         score={post.voteScore}
         voteCallback={() => {}}
         editURL={`/edit/${post.id}`}

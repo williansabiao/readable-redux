@@ -47,7 +47,7 @@ const CategoryList = ({
                 key={category.path}
                 selected={categorySelected === category.path}
                 className={{ 'chip-selected': categorySelected === category.path }}
-                onClick={() => navigateTo(`/category/${category.path}`)}
+                onClick={() => navigateTo(`/${category.path}`)}
               >
                 <ChipText>
                   {category.name}

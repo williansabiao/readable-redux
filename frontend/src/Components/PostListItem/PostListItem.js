@@ -21,8 +21,8 @@ const classRoot = 'post-list-item'
 const PostListItem = ({
   title,
   author,
-  comments,
-  score,
+  commentCount,
+  voteScore,
   onVote,
   editURL,
   onDelete,
@@ -30,9 +30,10 @@ const PostListItem = ({
   menuIsOpen,
   goToURL,
   setMenuOpen,
+  category,
 }) => (
   <Card className={`${classRoot}__card`}>
-    <CardPrimaryAction onClick={goToURL(`/post/${id}`)}>
+    <CardPrimaryAction onClick={goToURL(`/${category}/${id}`)}>
       <div style={{ padding: '0 1rem 1rem 1rem' }}>
         <Typography use="headline6" tag="h2">
           {title}
@@ -49,13 +50,13 @@ const PostListItem = ({
     </CardPrimaryAction>
     <CardActions>
       <CardActionButtons>
-        <CardAction onClick={goToURL(`/post/${id}#comments`)}>
+        <CardAction onClick={goToURL(`/${category}/${id}#comments`)}>
           <Icon use="mode_comment" />&nbsp;&nbsp;
-          {comments}
+          {commentCount}
         </CardAction>
         <CardAction>
           <Icon use="star" />&nbsp;&nbsp;
-          {score}
+          {voteScore}
         </CardAction>
       </CardActionButtons>
       <CardActionIcons>
@@ -101,14 +102,15 @@ PostListItem.propTypes = {
   id: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   author: PropTypes.string.isRequired,
-  comments: PropTypes.number.isRequired,
-  score: PropTypes.number.isRequired,
+  commentCount: PropTypes.number.isRequired,
+  voteScore: PropTypes.number.isRequired,
   onVote: PropTypes.func.isRequired,
   editURL: PropTypes.string.isRequired,
   menuIsOpen: PropTypes.bool,
   goToURL: PropTypes.func.isRequired,
   setMenuOpen: PropTypes.func.isRequired,
   onDelete: PropTypes.func.isRequired,
+  category: PropTypes.string.isRequired,
 }
 
 PostListItem.defaultProps = {
