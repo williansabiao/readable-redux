@@ -14,15 +14,13 @@ This repository includes the code for the backend API Server that you'll use to 
 ## Running the project
 To see the project working:
 
-* install all project dependencies with `npm install` or `yarn install` *(npm install preferrable once my yarn install is getting some issues)
-* start the development server with `npm start` or `yarn start`
 * Install and start the API server
     - `cd api-server`
     - `npm install`
     - `node server`
 * In another terminal window, use Create React App to scaffold out the front-end
-    - `create-react-app frontend`
     - `cd frontend`
+    - `npm install`
     - `npm start`
 
 ## API Server
