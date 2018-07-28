@@ -57,7 +57,13 @@ export const getPostFetch = id => (dispatch) => {
   if (id) {
     return posts
       .getPost(id)
-      .then(resultPost => dispatch(getPostSuccess(resultPost)))
+      .then(resultPost => (
+        dispatch(
+          (resultPost.error || !resultPost.id)
+            ? getPostFailed(resultPost.error)
+            : getPostSuccess(resultPost),
+        )
+      ))
       .catch(error => getPostFailed(error))
   }
   return false

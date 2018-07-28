@@ -89,7 +89,7 @@ const postReducer = (state = initialState, action) => {
   }
   case POST_GET_FAILED: {
     const { errorData } = action.payload
-
+    
     return {
       ...initialState,
       status: POST_GET_FAILED,

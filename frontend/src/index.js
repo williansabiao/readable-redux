@@ -22,9 +22,9 @@ const store = createStore(
   rootReducer,
   composeEnhancers(
     applyMiddleware(
-      logger,
       thunk,
       routerMiddleware(history),
+      logger,
     ),
   ),
 )

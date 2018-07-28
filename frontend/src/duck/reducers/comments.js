@@ -38,7 +38,9 @@ const commentReducer = (state = initialState, action) => {
   case COMMENT_CREATE_REQUEST: {
     return ({
       ...state,
-      staus: COMMENT_CREATE_REQUEST,
+      added: false,
+      commentDetails: initialState.commentsDetails,
+      status: COMMENT_CREATE_REQUEST,
     })
   }
   case COMMENT_CREATE_SUCCESS: {
