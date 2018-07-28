@@ -12,19 +12,23 @@ class CategoryList extends Component {
   }
 
   render() {
-    const { categories, navigateTo, ...rest } = this.props
+    const {
+      categories, navigateTo, search, ...rest
+    } = this.props
     return (
       <CategoryListComponent
         categories={categories}
         navigateTo={navigateTo}
+        search={search}
         {...rest}
       />
     )
   }
 }
 
-const mapStateToProps = ({ categories }) => ({
+const mapStateToProps = ({ categories, router }) => ({
   categories: categories.list,
+  search: router.location.search,
 })
 
 const mapDispatchToProps = dispatch => ({
@@ -36,6 +40,7 @@ CategoryList.propTypes = {
   getCategories: PropTypes.func.isRequired,
   categories: PropTypes.arrayOf(PropTypes.any).isRequired,
   navigateTo: PropTypes.func.isRequired,
+  search: PropTypes.string.isRequired,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(CategoryList)

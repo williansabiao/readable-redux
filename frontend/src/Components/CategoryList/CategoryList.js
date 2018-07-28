@@ -13,6 +13,7 @@ const CategoryList = ({
   showAll,
   categorySelected,
   navigateTo,
+  search,
 }) => (
   <React.Fragment>
     {categories.length > 0
@@ -22,7 +23,7 @@ const CategoryList = ({
             <Chip
               selected={categorySelected === ''}
               className={{ 'chip-selected': categorySelected === '' }}
-              onClick={() => navigateTo('/')}
+              onClick={() => navigateTo({ pathname: '/', search })}
             >
               <ChipText>
                 All
@@ -34,7 +35,7 @@ const CategoryList = ({
               key={category.path}
               selected={categorySelected === category.path}
               className={{ 'chip-selected': categorySelected === category.path }}
-              onClick={() => navigateTo(`/${category.path}`)}
+              onClick={() => navigateTo({ pathname: `/${category.path}`, search })}
             >
               <ChipText>
                 {category.name}
@@ -55,6 +56,7 @@ CategoryList.propTypes = {
   showAll: PropTypes.bool,
   categorySelected: PropTypes.string,
   navigateTo: PropTypes.func.isRequired,
+  search: PropTypes.string.isRequired,
 }
 
 CategoryList.defaultProps = {

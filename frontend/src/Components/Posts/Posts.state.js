@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
+import qs from 'query-string'
 
 import postsOperation from '../../duck/operations/posts'
 import { deletePostFetch } from '../../duck/operations/post'
@@ -22,6 +23,9 @@ class Posts extends Component {
     category, postsStatus, posts, post,
   }) {
     const prevProps = this.props
+
+    // if (orderBy !== prevProps.orderBy) this.setOrderBy()
+
     if (postsStatus !== prevProps.postsStatus) {
       let allPosts = [...posts]
       if (category) allPosts = this.filterPosts(allPosts, category)
@@ -44,6 +48,12 @@ class Posts extends Component {
 
   onVote = (vote, id) => this.props.votePost(vote, id)
 
+  sortPosts = (posts) => {
+    const { orderBy = 'timestamp' } = this.props
+
+    return posts.sort((p1, p2) => p1[orderBy] < p2[orderBy])
+  }
+
   filterPosts = (posts = [], category = '') => (
     category && category.length > 0 ? posts.filter(post => post.category === category) : posts
   )
@@ -51,7 +61,7 @@ class Posts extends Component {
   render() {
     return (
       <PostsComponent
-        posts={this.state.posts}
+        posts={this.sortPosts(this.state.posts)}
         onDelete={this.onDelete}
         onVote={this.onVote}
       />
@@ -59,10 +69,11 @@ class Posts extends Component {
   }
 }
 
-const mapStateToProps = ({ posts, post }) => ({
+const mapStateToProps = ({ posts, post, router }) => ({
   posts: posts.list,
   postsStatus: posts.status || '',
   post,
+  orderBy: qs.parse(router.location.search).orderBy || 'timestamp',
 })
 
 const mapDispatchToProps = dispatch => ({
@@ -79,6 +90,7 @@ Posts.propTypes = {
   postsStatus: PropTypes.string.isRequired,
   deletePost: PropTypes.func.isRequired,
   votePost: PropTypes.func.isRequired,
+  orderBy: PropTypes.string.isRequired,
 }
 
 Posts.defaultProps = {
