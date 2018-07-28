@@ -2,13 +2,15 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 import Posts from '../../Components/Posts'
-import CategoryList from '../../Components/CategoryList'
+// import CategoryList from '../../Components/CategoryList'
+import Filters from '../../Components/Filters'
 
 const Home = ({
   match,
 }) => (
   <div>
-    <CategoryList showAll categorySelected={match.params.category || ''} />
+    <Filters categorySelected={match.params.category || ''} />
+    {/* <CategoryList showAll categorySelected={match.params.category || ''} /> */}
     <Posts category={match.params.category || null} />
   </div>
 )
