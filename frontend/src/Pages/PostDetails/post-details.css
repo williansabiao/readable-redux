@@ -13,3 +13,17 @@
 .post-details__btn i {
   margin-right: 0 !important;
 }
+
+.post-details__btn-edit {
+  text-decoration: none;
+  color: inherit;
+}
+
+.post-details__btn-edit:hover {
+  text-decoration: underline;
+}
+
+.post-details__btn-edit:visited,
+.post-details__btn-edit:active {
+  color: inherit;
+}

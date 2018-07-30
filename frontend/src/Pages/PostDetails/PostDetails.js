@@ -1,5 +1,5 @@
 import React from 'react'
-// import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import {
   Grid,
@@ -24,6 +24,7 @@ const PostDetails = ({
   commentCount,
   voteScore,
   onVote,
+  onDelete,
 }) => (
   <React.Fragment>
     <Grid className={setClass('center')}>
@@ -84,6 +85,20 @@ const PostDetails = ({
       </GridCell>
       <GridCell span={2} />
     </Grid>
+    <Grid className={setClass('center')}>
+      <GridCell span={2}>
+        <Link to={`/edit/${id}`} className={setClass('btn-edit')}>
+          <Typography use="button">
+            Edit
+          </Typography>
+        </Link>
+      </GridCell>
+      <GridCell span={2}>
+        <Button theme="secondary" accent onClick={() => onDelete(id)}>
+          Delete
+        </Button>
+      </GridCell>
+    </Grid>
     {id.length > 0 && (
       <Grid>
         <GridCell span={12}>
@@ -102,6 +117,7 @@ PostDetails.propTypes = {
   voteScore: PropTypes.number.isRequired,
   body: PropTypes.string.isRequired,
   onVote: PropTypes.func.isRequired,
+  onDelete: PropTypes.func.isRequired,
 }
 
 export default PostDetails

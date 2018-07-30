@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { push } from 'react-router-redux'
+import { push, replace } from 'react-router-redux'
 import PropTypes from 'prop-types'
 
 import {
@@ -11,7 +11,7 @@ import {
 } from '../../duck/operations/post'
 import { fetchGetCategories } from '../../duck/operations/categories'
 import { showFeedback as showFeedbackAction } from '../../duck/actions/feedback'
-import { POST_UPDATE_SUCCESS, POST_GET_SUCCESS } from '../../duck/actions/post'
+import { POST_UPDATE_SUCCESS, POST_GET_SUCCESS, POST_GET_FAILED } from '../../duck/actions/post'
 import PostForm from '../../Components/PostForm'
 
 class AddPostPage extends Component {
@@ -40,6 +40,7 @@ class AddPostPage extends Component {
       post,
       showFeedback,
       navigateTo,
+      replaceTo,
     } = this.props
 
     if (nextProps.post.added && post !== nextProps.post.postAdded) {
@@ -50,7 +51,10 @@ class AddPostPage extends Component {
     if (post.status !== nextProps.post.status) {
       if (nextProps.post.status === POST_GET_SUCCESS) {
         this.setState({ loading: false })
+      } else if (nextProps.post.status === POST_GET_FAILED) {
+        replaceTo('/404')
       }
+
       if (nextProps.post.status === POST_UPDATE_SUCCESS) {
         showFeedback({ message: 'Post edited succesfully' })
         navigateTo('/')
@@ -106,6 +110,7 @@ const mapDispatchToProps = dispatch => ({
   getPost: id => dispatch(getPostFetch(id)),
   updatePost: post => dispatch(updatePostFetch(post)),
   navigateTo: location => dispatch(push(location)),
+  replaceTo: location => dispatch(replace(location)),
   showFeedback: ({ message }) => dispatch(showFeedbackAction({ message })),
   getCategories: () => dispatch(fetchGetCategories()),
   postReset: () => dispatch(postResetReducer()),
@@ -116,6 +121,7 @@ AddPostPage.propTypes = {
   updatePost: PropTypes.func.isRequired,
   getPost: PropTypes.func.isRequired,
   navigateTo: PropTypes.func.isRequired,
+  replaceTo: PropTypes.func.isRequired,
   showFeedback: PropTypes.func.isRequired,
   getCategories: PropTypes.func.isRequired,
   post: PropTypes.objectOf(PropTypes.any).isRequired,
